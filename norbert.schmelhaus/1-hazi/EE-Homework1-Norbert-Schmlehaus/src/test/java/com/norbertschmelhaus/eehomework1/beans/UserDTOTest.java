@@ -21,16 +21,15 @@ public class UserDTOTest {
 
     private static ValidatorFactory vf;
     private static Validator validator;
-    private static Calendar cal;
-    private static Date now;
-    private static Date dateOfBirthValid;
-    private static Date dateOfBirthInvalid;
+    private final Calendar cal = Calendar.getInstance();;
+    private final Date now = new Date();
+    private Date dateOfBirthValid;
+    private Date dateOfBirthInvalid;
 
     @BeforeClass
     public static void setUpClass() {
         vf = Validation.buildDefaultValidatorFactory();
         validator = vf.getValidator();
-        cal = Calendar.getInstance();
     }
 
     @AfterClass
@@ -40,7 +39,6 @@ public class UserDTOTest {
 
     @Before
     public void setUp() {
-        now = new Date();
         cal.set(1995, 10, 10);
         dateOfBirthValid = cal.getTime();
         cal.set(2016, 10, 10);
@@ -48,7 +46,7 @@ public class UserDTOTest {
     }
 
     @Test
-    public void shouldRaiseConstraintViolationCauseValidPassword() {
+    public void shouldRaiseNoConstraintViolationCauseValidPassword() {
         UserDTO user = new UserDTO("Janos45", "Ezajelszo>", "email@email.hu", now);
         Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
         Assert.assertEquals(0, violations.size());
@@ -59,14 +57,12 @@ public class UserDTOTest {
         UserDTO user = new UserDTO("Janos45", "dummyPassword", "email@email.hu", now);
         Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
         Assert.assertEquals(1, violations.size());
-        Assert.assertEquals("invalid password, must have lowwercase,uppercase & number or scpec caracter and min size 6",
-                violations.iterator().next().getMessage());
         Assert.assertEquals("dummyPassword", violations.iterator().next().getInvalidValue());
         Assert.assertEquals("{Password.message}", violations.iterator().next().getMessageTemplate());
     }
 
     @Test
-    public void shouldRaiseConstraintViolationCauseValidAddress() {
+    public void shouldRaiseNoConstraintViolationCauseValidAddress() {
         UserDTO user = new UserDTO("Janos45", "Valid541", "email@email.hu", now);
         user.setAddress("8500 Valahol Jó utca 15.");
         Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
@@ -79,14 +75,12 @@ public class UserDTOTest {
         user.setAddress("dummyAddress");
         Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
         Assert.assertEquals(1, violations.size());
-        Assert.assertEquals("invalid address must be start with 4 numbers",
-                violations.iterator().next().getMessage());
         Assert.assertEquals("dummyAddress", violations.iterator().next().getInvalidValue());
         Assert.assertEquals("{Address.message}", violations.iterator().next().getMessageTemplate());
     }
 
     @Test
-    public void shouldRaiseConstraintViolationCauseValidPhone() {
+    public void shouldRaiseNoConstraintViolationCauseValidPhone() {
         UserDTO user = new UserDTO("Janos45", "Valid541", "email@email.hu", now);
         user.setPhone("+36123456789");
         Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
@@ -99,14 +93,12 @@ public class UserDTOTest {
         user.setPhone("061234567890");
         Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
         Assert.assertEquals(1, violations.size());
-        Assert.assertEquals("invalid phone number must be start with +36 or 06 and then 9 numbers",
-                violations.iterator().next().getMessage());
         Assert.assertEquals("061234567890", violations.iterator().next().getInvalidValue());
         Assert.assertEquals("{Phone.message}", violations.iterator().next().getMessageTemplate());
     }
 
     @Test
-    public void shouldRaiseConstraintViolationCauseValidEmail() {
+    public void shouldRaiseNoConstraintViolationCauseValidEmail() {
         UserDTO user = new UserDTO("Janos45", "Valid541", "email@email.hu", now);
         Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
         Assert.assertEquals(0, violations.size());
@@ -117,14 +109,12 @@ public class UserDTOTest {
         UserDTO user = new UserDTO("Janos45", "Valid541", "@email.hu", now);
         Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
         Assert.assertEquals(1, violations.size());
-        Assert.assertEquals("invalid email address",
-                violations.iterator().next().getMessage());
         Assert.assertEquals("@email.hu", violations.iterator().next().getInvalidValue());
         Assert.assertEquals("{Email.message}", violations.iterator().next().getMessageTemplate());
     }
 
     @Test
-    public void shouldRaiseConstraintViolationCauseValidFirstFillLastFill() {
+    public void shouldRaiseNoConstraintViolationCauseValidFirstFillLastFill() {
         UserDTO user = new UserDTO("Janos45", "Valid541", "email@email.hu", now);
         user.setFirstName("Nagy");
         user.setLastName("János");
@@ -138,14 +128,12 @@ public class UserDTOTest {
         user.setFirstName("Nagy");
         Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
         Assert.assertEquals(1, violations.size());
-        Assert.assertEquals("Missing your lastname pls write it or delete your firstname",
-                violations.iterator().next().getMessage());
         Assert.assertEquals(user, violations.iterator().next().getRootBean());
         Assert.assertEquals("{FirstFillLastFill.message}", violations.iterator().next().getMessageTemplate());
     }
 
     @Test
-    public void shouldRaiseConstraintViolationCauseValidDateOfBirth() {
+    public void shouldRaiseNoConstraintViolationCauseValidDateOfBirth() {
         UserDTO user = new UserDTO("Janos45", "Valid541", "email@email.hu", now);
         user.setDateOfBirth(dateOfBirthValid);
         Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
@@ -158,8 +146,6 @@ public class UserDTOTest {
         user.setDateOfBirth(dateOfBirthInvalid);
         Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
         Assert.assertEquals(1, violations.size());
-        Assert.assertEquals("invalid date of birth, your birth of date must be earlier then registration date",
-                violations.iterator().next().getMessage());
         Assert.assertEquals(user, violations.iterator().next().getRootBean());
         Assert.assertEquals("{DateOfBirth.message}", violations.iterator().next().getMessageTemplate());
     }

@@ -39,7 +39,7 @@ public class MobileTypeTest {
     }
 
     @Test
-    public void shouldRaiseConstraintViolationCauseAppleManufacturerWithValidColor() {
+    public void shouldRaiseNoConstraintViolationCauseAppleManufacturerWithValidColor() {
         MobileType mobile = new MobileType(ManufacturerEnum.APPLE, "type2", 1, Coin.HUF, BLACK);
         Set<ConstraintViolation<MobileType>> violations = validator.validate(mobile);
         Assert.assertEquals(0, violations.size());
@@ -50,14 +50,12 @@ public class MobileTypeTest {
         MobileType mobile = new MobileType(ManufacturerEnum.APPLE, "type3", 1, Coin.HUF, BLUE);
         Set<ConstraintViolation<MobileType>> violations = validator.validate(mobile);
         Assert.assertEquals(1, violations.size());
-        Assert.assertEquals("invalid color of mobile, apple have only black or white and samsung haven't green color",
-                violations.iterator().next().getMessage());
         Assert.assertEquals(mobile, violations.iterator().next().getRootBean());
         Assert.assertEquals("{Manufacturer.message}", violations.iterator().next().getMessageTemplate());
     }
 
     @Test
-    public void shouldRaiseConstraintViolationCauseSamsungManufacturerWithValidColor() {
+    public void shouldRaiseNoConstraintViolationCauseSamsungManufacturerWithValidColor() {
         MobileType mobile = new MobileType(ManufacturerEnum.SAMSUNG, "type4", 1, Coin.HUF, RED);
         Set<ConstraintViolation<MobileType>> violations = validator.validate(mobile);
         Assert.assertEquals(0, violations.size());
@@ -68,8 +66,6 @@ public class MobileTypeTest {
         MobileType mobile = new MobileType(ManufacturerEnum.SAMSUNG, "type5", 1, Coin.HUF, GREEN);
         Set<ConstraintViolation<MobileType>> violations = validator.validate(mobile);
         Assert.assertEquals(1, violations.size());
-        Assert.assertEquals("invalid color of mobile, apple have only black or white and samsung haven't green color",
-                violations.iterator().next().getMessage());
         Assert.assertEquals(mobile, violations.iterator().next().getRootBean());
         Assert.assertEquals("{Manufacturer.message}", violations.iterator().next().getMessageTemplate());
     }
