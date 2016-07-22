@@ -1,7 +1,6 @@
 package com.norbertschmelhaus.eehomework1.beans;
 
 import com.norbertschmelhaus.eehomework1.constraint.Manufacturer;
-import java.util.UUID;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -15,7 +14,7 @@ public class MobileType {
 
     @NotNull
     @Size(min = 36, max = 36)
-    private final String id = UUID.randomUUID().toString();
+    private String id = "ddbb07d5-eafa-4565-8886-648c34d61322";
     @NotNull
     private ManufacturerEnum manufacturer;
     @NotNull
@@ -28,6 +27,10 @@ public class MobileType {
     private Coin coin;
     @NotNull
     private Color color;
+    
+    public MobileType() {
+        //Empty constructor
+    }
 
     public MobileType(ManufacturerEnum manufacturer, String type, int price, Coin coin, Color color) {
         this.manufacturer = manufacturer;
@@ -39,6 +42,10 @@ public class MobileType {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public ManufacturerEnum getManufacturer() {
@@ -79,5 +86,42 @@ public class MobileType {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+
+        if (this.getClass() != obj.getClass())
+            return false;
+        
+        MobileType mt = (MobileType) obj;
+        int size = 0;
+        boolean isTrue = false;
+        if (mt.manufacturer.equals(this.manufacturer)) {
+            size++;
+        }
+        if (mt.type.equals(this.type)) {
+            size++;
+        }
+        if (mt.price == this.price) {
+            size++;
+        }
+        if (mt.coin.equals(this.coin)) {
+            size++;
+        }
+        if (mt.color.equals(this.color)) {
+            size++;
+        }
+        if (size == 5) {
+            isTrue = true;
+        }
+        return isTrue;
+    }
+    
+    @Override
+    public int hashCode() {
+        return 1;
     }
 }

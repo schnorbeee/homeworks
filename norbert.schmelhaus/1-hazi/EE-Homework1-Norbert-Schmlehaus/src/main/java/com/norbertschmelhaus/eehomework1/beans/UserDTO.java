@@ -35,6 +35,10 @@ public class UserDTO {
     private Date registrationDate;
     private Date dateOfBirth;
     private boolean admin;
+    
+    public UserDTO() {
+        //Empty constructor
+    }
 
     public UserDTO(String userName, String password, String email, Date registrationDate) {
         this.userName = userName;
@@ -131,4 +135,55 @@ public class UserDTO {
         this.admin = admin;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+
+        if (this.getClass() != obj.getClass())
+            return false;
+
+        UserDTO ex = (UserDTO) obj;
+        int size = 0;
+        boolean isTrue = false;
+        if ((ex.address == null && this.address == null) || this.address.equals(ex.address)) {
+            size++;
+        }
+        if (this.admin == ex.admin) {
+            size++;
+        }
+        if ((ex.dateOfBirth == null && this.dateOfBirth == null) || this.dateOfBirth.equals(ex.dateOfBirth)) {
+            size++;
+        }
+        if (this.email.equals(ex.email)) {
+            size++;
+        }
+        if ((ex.firstName == null && this.firstName == null) || this.firstName.equals(ex.firstName)) {
+            size++;
+        }
+        if ((ex.lastName == null && this.lastName == null) || this.lastName.equals(ex.lastName)) {
+            size++;
+        }
+        if (this.password.equals(ex.password)) {
+            size++;
+        }
+        if ((ex.phone == null && this.phone == null) || this.phone.equals(ex.phone)) {
+            size++;
+        }
+        if ((ex.sex == null && this.sex == null) || this.sex.equals(ex.sex)) {
+            size++;
+        }
+        if (this.userName.equals(ex.userName)) {
+            size++;
+        }
+        if (size == 10) {
+            isTrue = true;
+        }
+        return isTrue;
+    }
+    
+    @Override
+    public int hashCode() {
+        return 1;
+    }
 }

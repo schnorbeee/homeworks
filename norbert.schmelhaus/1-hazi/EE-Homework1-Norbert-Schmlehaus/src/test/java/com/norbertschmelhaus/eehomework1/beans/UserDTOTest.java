@@ -3,6 +3,7 @@ package com.norbertschmelhaus.eehomework1.beans;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
+import java.util.logging.Logger;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -21,8 +22,8 @@ public class UserDTOTest {
 
     private static ValidatorFactory vf;
     private static Validator validator;
-    private final Calendar cal = Calendar.getInstance();;
-    private final Date now = new Date();
+    private final Calendar cal = Calendar.getInstance();
+    private Date now;
     private Date dateOfBirthValid;
     private Date dateOfBirthInvalid;
 
@@ -39,6 +40,8 @@ public class UserDTOTest {
 
     @Before
     public void setUp() {
+        cal.set(2016, 6, 10);
+        now = cal.getTime();
         cal.set(1995, 10, 10);
         dateOfBirthValid = cal.getTime();
         cal.set(2016, 10, 10);
