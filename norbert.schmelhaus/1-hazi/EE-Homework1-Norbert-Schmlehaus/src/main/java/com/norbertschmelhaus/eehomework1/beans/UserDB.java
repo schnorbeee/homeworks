@@ -1,8 +1,8 @@
 package com.norbertschmelhaus.eehomework1.beans;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -10,40 +10,23 @@ import java.util.List;
  */
 public class UserDB {
 
-    private final List<UserDTO> users = new ArrayList();
+    private final Map<String, UserDTO> users = new HashMap();
     
     public UserDB() {
         //Empty constructor
     }
 
-    public List<UserDTO> getUsers() {
-        return users;
-    }
-
     public UserDTO registrate(UserDTO user) {
         user.setRegistrationDate(new Date());
-        users.add(user);        
+        users.put(user.getUserName(), user);        
         return user;
     }
 
     public UserDTO getUser(String username) {
-        UserDTO user = null;
-        for (UserDTO u : users) {
-            if (username.equals(u.getUserName())) {
-                user = u;
-            }
-        }
-        return user;
+        return users.get(username);
     }
 
     boolean authenticate(String username, String password) {
-        boolean isAuthentication = false;
-        for (UserDTO u : users) {
-            if (username.equals(u.getUserName()) && password.equals(u.getPassword())) {
-                isAuthentication = true;
-                break;
-            }
-        }
-        return isAuthentication;
+        return (username.equals(users.get(username).getUserName()) && password.equals(users.get(username).getPassword()));
     }
 }

@@ -10,38 +10,34 @@ import java.util.UUID;
  */
 public class MobileInventory {
 
-    private final Map<String, MobileType> mobiles = new HashMap();
-    private final Map<String, Integer> mobileTypes = new HashMap();
+    private final Map<String, Map<MobileType, Integer>> mobiles = new HashMap();    
     
     public MobileInventory() {
         //Empty constructor
     }
 
-    public Map<String, MobileType> getMobiles() {
+    public Map<String, Map<MobileType, Integer>> getMobiles() {
         return mobiles;
-    }
-
-    public Map<String, Integer> getMobileTypes() {
-        return mobileTypes;
     }
 
     public MobileType addNewMobileType(MobileType type) {
         type.setId(UUID.randomUUID().toString());
-        mobileTypes.put(type.getId(), 0);
-        mobiles.put(type.getId(), type);
+        Map<MobileType, Integer> mobileWithQuantity = new HashMap();
+        mobileWithQuantity.put(type, 0);
+        mobiles.put(type.getId(), mobileWithQuantity);
         return type;
     }
 
     public boolean reserveMobile(MobileType type, int quantity) {
-        if (mobileTypes.get(type.getId()) != null && mobileTypes.get(type.getId()) > quantity) {
-            return mobileTypes.replace(type.getId(), mobileTypes.get(type.getId()), mobileTypes.get(type.getId()) - quantity);
+        if (mobiles.get(type.getId()) != null && mobiles.get(type.getId()).get(type) > quantity) {
+            return mobiles.get(type.getId()).replace(type, mobiles.get(type.getId()).get(type), mobiles.get(type.getId()).get(type) - quantity);
         }
         return false;
     }
 
     public boolean returnMobile(MobileType type, int quantity) {
-        if (mobileTypes.get(type.getId()) != null) {
-            return mobileTypes.replace(type.getId(), mobileTypes.get(type.getId()), mobileTypes.get(type.getId()) + quantity);
+        if (mobiles.get(type.getId()) != null) {
+            return mobiles.get(type.getId()).replace(type, mobiles.get(type.getId()).get(type), mobiles.get(type.getId()).get(type) + quantity);
         }
         return false;
     }

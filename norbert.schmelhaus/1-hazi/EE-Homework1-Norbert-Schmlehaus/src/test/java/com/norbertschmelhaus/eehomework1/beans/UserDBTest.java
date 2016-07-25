@@ -20,7 +20,6 @@ public class UserDBTest {
     @Before
     public void setUp() {
         instance = new UserDB();
-        instance.getUsers().add(new UserDTO("myusername", "Password123", "email@email.hu", now));
     }
 
     /**
@@ -45,9 +44,11 @@ public class UserDBTest {
         LOGGER.log(Level.INFO, "getUser");
         String username = "myusername";
         UserDTO user = new UserDTO("myusername", "Password123", "email@email.hu", now);
+        instance.registrate(user);
+        UserDTO expUser = new UserDTO("myusername", "Password123", "email@email.hu", now);
         UserDTO result = instance.getUser(username);
-        Assert.assertEquals(user.getUserName(), result.getUserName());
-        Assert.assertEquals(user, result);
+        Assert.assertEquals(expUser.getUserName(), result.getUserName());
+        Assert.assertEquals(expUser, result);
     }
 
     /**
@@ -58,9 +59,10 @@ public class UserDBTest {
         LOGGER.log(Level.INFO, "authenticate");
         String username = "myusername";
         String password = "Password123";
-        boolean expResult = true;
+        UserDTO user = new UserDTO("myusername", "Password123", "email@email.hu", now);
+        instance.registrate(user);
         boolean result = instance.authenticate(username, password);
-        Assert.assertEquals(expResult, result);
+        Assert.assertTrue(result);
     }
 
     /**
@@ -71,8 +73,9 @@ public class UserDBTest {
         LOGGER.log(Level.INFO, "authenticate");
         String username = "myusername";
         String password = "Password1";
-        boolean expResult = false;
+        UserDTO user = new UserDTO("myusername", "Password123", "email@email.hu", now);
+        instance.registrate(user);
         boolean result = instance.authenticate(username, password);
-        Assert.assertEquals(expResult, result);
+        Assert.assertFalse(result);
     }
 }

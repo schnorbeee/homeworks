@@ -1,0 +1,82 @@
+[
+        {"id": "ddbb07d5-eafa-4565-8886-648c34d61001",
+        "manufacturer": "APPLE",
+        "type": "type1",
+        "price": 1,
+        "coin": "HUF",
+        "color": "BLACK"
+        },
+
+        {"id": "ddbb07d5-eafa-4565-8886-648c34d61002",
+        "manufacturer": "APPLE",
+        "type": "type2",
+        "price": 1000,
+        "coin": "HUF",
+        "color": "WHITE"
+        },
+
+        {"id": "ddbb07d5-eafa-4565-8886-648c34d61003",
+        "manufacturer": "HTC",
+        "type": "type3",
+        "price": 100,
+        "coin": "HUF",
+        "color": "BLACK"
+        },
+
+        {"id": "ddbb07d5-eafa-4565-8886-648c34d61004",
+        "manufacturer": "SAMSUNG",
+        "type": "type4",
+        "price": 1500,
+        "coin": "HUF",
+        "color": "RED"
+        },
+
+        {"id": "ddbb07d5-eafa-4565-8886-648c34d61005",
+        "manufacturer": "SAMSUNG",
+        "type": "type5",
+        "price": 1,
+        "coin": "HUF",
+        "color": "BLUE"
+        },
+
+        {"id": "ddbb07d5-eafa-4565-8886-648c34d61006",
+        "manufacturer": "ONEPLUS",
+        "type": "type6",
+        "price": 1,
+        "coin": "HUF",
+        "color": "GREEN"
+        },
+
+        {"id": "ddbb07d5-eafa-4565-8886-648c34d61007",
+        "manufacturer": "HTC",
+        "type": "type7",
+        "price": 200,
+        "coin": "HUF",
+        "color": "WHITE"
+        },
+
+        {"id": "ddbb07d5-eafa-4565-8886-648c34d61008",
+        "manufacturer": "ONEPLUS",
+        "type": "type8",
+        "price": 150,
+        "coin": "HUF",
+        "color": "PURPLE"
+        },
+
+        {"id": "ddbb07d5-eafa-4565-8886-648c34d61009",
+        "manufacturer": "SAMSUNG",
+        "type": "type9",
+        "price": 250,
+        "coin": "HUF",
+        "color": "BLACK"
+        },
+
+        {"id": "ddbb07d5-eafa-4565-8111-648c34d61010",
+        "manufacturer": "HTC",
+        "type": "type10",
+        "price": 18,
+        "coin": "HUF",
+        "color": "RED"
+        }
+]
+

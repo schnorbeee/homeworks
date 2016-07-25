@@ -19,7 +19,6 @@ public class MobileInventoryTest {
     @Before
     public void setUp() {
         instance = new MobileInventory();
-        instance.getMobileTypes().put(mobType.getId(), 25);
     }
 
     /**
@@ -33,20 +32,34 @@ public class MobileInventoryTest {
         LOGGER.log(Level.INFO, expResult.getId());
         MobileType result = instance.addNewMobileType(newMobileType);
         Assert.assertEquals(expResult, result);
-        Assert.assertEquals(0.0, instance.getMobileTypes().get(newMobileType.getId()), 0.0);
+        Assert.assertEquals(0.0, instance.getMobiles().get(newMobileType.getId()).get(newMobileType), 0.0);
     }
 
     /**
-     * Test of reserveMobile method, of class MobileInventory.
+     * Test of reserveMobile method, of class MobileInventory, with higher quantity.
      */
     @Test
-    public void testReserveMobile() {
+    public void testReserveMobileWithHigherQuantity() {
         LOGGER.log(Level.INFO, "reserveMobile");
         int quantity = 4;
-        boolean expResult = true;
+        instance.addNewMobileType(mobType);
         boolean result = instance.reserveMobile(mobType, quantity);
-        Assert.assertEquals(expResult, result);
-        Assert.assertEquals(21.0, (double) (instance.getMobileTypes().get(mobType.getId())), 0.0);
+        Assert.assertFalse(result);
+        Assert.assertEquals(0.0, instance.getMobiles().get(mobType.getId()).get(mobType), 0.0);
+    }
+    
+    /**
+     * Test of reserveMobile method, of class MobileInventory, with lower quantity.
+     */
+    @Test
+    public void testReserveMobileWithLowerQuantity() {
+        LOGGER.log(Level.INFO, "reserveMobile");
+        int quantity = 4;
+        instance.addNewMobileType(mobType);
+        instance.returnMobile(mobType, 20);
+        boolean result = instance.reserveMobile(mobType, quantity);
+        Assert.assertTrue(result);
+        Assert.assertEquals(16.0, instance.getMobiles().get(mobType.getId()).get(mobType), 0.0);
     }
 
     /**
@@ -56,10 +69,10 @@ public class MobileInventoryTest {
     public void testReturnMobile() {
         LOGGER.log(Level.INFO, "returnMobile");
         int quantity = 6;
-        boolean expResult = true;
+        instance.addNewMobileType(mobType);
         boolean result = instance.returnMobile(mobType, quantity);
-        Assert.assertEquals(expResult, result);
-        Assert.assertEquals(31.0, (double) (instance.getMobileTypes().get(mobType.getId())), 0.0);
+        Assert.assertTrue(result);
+        Assert.assertEquals(6.0, instance.getMobiles().get(mobType.getId()).get(mobType), 0.0);
     }
-
+    
 }
