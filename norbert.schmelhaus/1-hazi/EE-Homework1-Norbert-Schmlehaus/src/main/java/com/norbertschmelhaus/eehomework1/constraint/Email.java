@@ -28,10 +28,4 @@ public @interface Email {
 
     Class<? extends Payload>[] payload() default {};
 
-    @Target(FIELD)
-    @Retention(RUNTIME)
-    @interface List {
-
-        Email[] value();
-    }
 }

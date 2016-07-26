@@ -1,6 +1,10 @@
-package com.norbertschmelhaus.eehomework1.beans;
+package com.norbertschmelhaus.eehomework1.dto;
 
+import com.norbertschmelhaus.eehomework1.enums.Coin;
+import com.norbertschmelhaus.eehomework1.enums.Color;
+import com.norbertschmelhaus.eehomework1.enums.ManufacturerEnum;
 import com.norbertschmelhaus.eehomework1.constraint.Manufacturer;
+import java.io.Serializable;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -10,7 +14,7 @@ import javax.validation.constraints.Size;
  * @author norbeee
  */
 @Manufacturer
-public class MobileType {
+public class MobileType implements Serializable {
 
     @NotNull
     @Size(min = 36, max = 36)
@@ -122,6 +126,15 @@ public class MobileType {
     
     @Override
     public int hashCode() {
-        return 1;
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((manufacturer == null) ? 0 : manufacturer.hashCode());
+        result = prime * result + ((type == null) ? 0 : type.hashCode());
+        result = prime * result + price;
+        result = prime * result + ((coin == null) ? 0 : coin.hashCode());
+        result = prime * result + ((color == null) ? 0 : color.hashCode());
+        
+        return result;
     }
 }

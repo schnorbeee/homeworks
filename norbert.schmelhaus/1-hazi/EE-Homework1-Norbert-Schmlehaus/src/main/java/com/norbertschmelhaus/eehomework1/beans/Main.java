@@ -1,5 +1,9 @@
 package com.norbertschmelhaus.eehomework1.beans;
 
+import com.norbertschmelhaus.eehomework1.singletons.MobileInventory;
+import com.norbertschmelhaus.eehomework1.singletons.UserDB;
+import com.norbertschmelhaus.eehomework1.dto.MobileType;
+import com.norbertschmelhaus.eehomework1.dto.UserDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,8 +19,6 @@ import java.util.logging.Logger;
 public class Main {
 
     private static final Logger LOGGER = Logger.getLogger(Main.class.getSimpleName());
-    private static final MobileInventory INVENTORY = new MobileInventory();
-    private static final UserDB USER_DB = new UserDB();
 
     private Main() {
         //Simple constuktor for main
@@ -32,19 +34,19 @@ public class Main {
     private static void regUsersAndWriteOut(UserDTO[] users) {
         List<String> usernames = new ArrayList();
         for (UserDTO udto : users) {
-            USER_DB.registrate(udto);
+            UserDB.INSTANCE.registrate(udto);
             usernames.add(udto.getUserName());
         }
         for (String str : usernames) {
-            LOGGER.log(Level.INFO, "{0} : {1} : {2}", new Object[]{str, USER_DB.getUser(str).getEmail(), USER_DB.getUser(str).getPassword()});
+            LOGGER.log(Level.INFO, "{0} : {1} : {2}", new Object[]{str, UserDB.INSTANCE.getUser(str).getEmail(), UserDB.INSTANCE.getUser(str).getPassword()});
         }
     }
     
     private static void regMobilesAndWriteOut(MobileType[] mobiles) {
         for (MobileType mobile : mobiles) {
-            INVENTORY.addNewMobileType(mobile);
+            MobileInventory.INSTANCE.addNewMobileType(mobile);
         }
-        for (Map.Entry<String, Map<MobileType, Integer>> e : INVENTORY.getMobiles().entrySet()) {
+        for (Map.Entry<String, Map<MobileType, Integer>> e : MobileInventory.INSTANCE.getMobiles().entrySet()) {
             MobileType currentMobile = e.getValue().keySet().iterator().next();
             int current = e.getValue().get(currentMobile);
             LOGGER.log(Level.INFO, "{0} : {1} : {2} : {3}", new Object[]{e.getKey(), currentMobile.getType(), currentMobile.getManufacturer(), current});

@@ -22,10 +22,4 @@ public @interface FirstFillLastFill {
 
     Class<? extends Payload>[] payload() default {};
 
-    @Target(TYPE)
-    @Retention(RUNTIME)
-    @interface List {
-
-        FirstFillLastFill[] value();
-    }
 }

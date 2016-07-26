@@ -2,7 +2,7 @@ package com.norbertschmelhaus.eehomework1.constraint;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import com.norbertschmelhaus.eehomework1.beans.UserDTO;
+import com.norbertschmelhaus.eehomework1.dto.UserDTO;
 
 /**
  *

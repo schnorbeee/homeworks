@@ -2,9 +2,9 @@ package com.norbertschmelhaus.eehomework1.constraint;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import com.norbertschmelhaus.eehomework1.beans.MobileType;
-import com.norbertschmelhaus.eehomework1.beans.ManufacturerEnum;
-import com.norbertschmelhaus.eehomework1.beans.Color;
+import com.norbertschmelhaus.eehomework1.dto.MobileType;
+import com.norbertschmelhaus.eehomework1.enums.ManufacturerEnum;
+import com.norbertschmelhaus.eehomework1.enums.Color;
 
 /**
  *

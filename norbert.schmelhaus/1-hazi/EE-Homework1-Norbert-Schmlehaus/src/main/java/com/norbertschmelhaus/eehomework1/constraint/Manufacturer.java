@@ -22,10 +22,4 @@ public @interface Manufacturer {
 
     Class<? extends Payload>[] payload() default {};
 
-    @Target(TYPE)
-    @Retention(RUNTIME)
-    @interface List {
-
-        Manufacturer[] value();
-    }
 }

@@ -1,5 +1,6 @@
-package com.norbertschmelhaus.eehomework1.beans;
+package com.norbertschmelhaus.eehomework1.singletons;
 
+import com.norbertschmelhaus.eehomework1.dto.MobileType;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -8,14 +9,12 @@ import java.util.UUID;
  *
  * @author norbeee
  */
-public class MobileInventory {
+public enum MobileInventory {
 
-    private final Map<String, Map<MobileType, Integer>> mobiles = new HashMap();    
+    INSTANCE;
     
-    public MobileInventory() {
-        //Empty constructor
-    }
-
+    private final transient Map<String, Map<MobileType, Integer>> mobiles = new HashMap<>();    
+    
     public Map<String, Map<MobileType, Integer>> getMobiles() {
         return mobiles;
     }

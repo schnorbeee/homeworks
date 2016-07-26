@@ -28,10 +28,4 @@ public @interface Phone {
 
     Class<? extends Payload>[] payload() default {};
 
-    @Target(FIELD)
-    @Retention(RUNTIME)
-    @interface List {
-
-        Phone[] value();
-    }
 }

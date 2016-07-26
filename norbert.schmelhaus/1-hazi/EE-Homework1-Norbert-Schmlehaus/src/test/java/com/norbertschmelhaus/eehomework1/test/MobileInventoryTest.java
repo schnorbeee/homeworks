@@ -1,9 +1,13 @@
-package com.norbertschmelhaus.eehomework1.beans;
+package com.norbertschmelhaus.eehomework1.test;
 
+import com.norbertschmelhaus.eehomework1.enums.ManufacturerEnum;
+import com.norbertschmelhaus.eehomework1.enums.Color;
+import com.norbertschmelhaus.eehomework1.enums.Coin;
+import com.norbertschmelhaus.eehomework1.singletons.MobileInventory;
+import com.norbertschmelhaus.eehomework1.dto.MobileType;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -13,13 +17,7 @@ import org.junit.Test;
 public class MobileInventoryTest {
 
     private static final Logger LOGGER = Logger.getLogger(UserDBTest.class.getName());
-    private MobileInventory instance;
     private final MobileType mobType = new MobileType(ManufacturerEnum.HTC, "type1", 1, Coin.JEN, Color.BLUE);
-
-    @Before
-    public void setUp() {
-        instance = new MobileInventory();
-    }
 
     /**
      * Test of addNewMobileType method, of class MobileInventory.
@@ -30,9 +28,9 @@ public class MobileInventoryTest {
         MobileType newMobileType = new MobileType(ManufacturerEnum.APPLE, "type2", 1, Coin.HUF, Color.WHITE);
         MobileType expResult = new MobileType(ManufacturerEnum.APPLE, "type2", 1, Coin.HUF, Color.WHITE);
         LOGGER.log(Level.INFO, expResult.getId());
-        MobileType result = instance.addNewMobileType(newMobileType);
+        MobileType result = MobileInventory.INSTANCE.addNewMobileType(newMobileType);
         Assert.assertEquals(expResult, result);
-        Assert.assertEquals(0.0, instance.getMobiles().get(newMobileType.getId()).get(newMobileType), 0.0);
+        Assert.assertEquals(0.0, MobileInventory.INSTANCE.getMobiles().get(newMobileType.getId()).get(newMobileType), 0.0);
     }
 
     /**
@@ -42,10 +40,10 @@ public class MobileInventoryTest {
     public void testReserveMobileWithHigherQuantity() {
         LOGGER.log(Level.INFO, "reserveMobile");
         int quantity = 4;
-        instance.addNewMobileType(mobType);
-        boolean result = instance.reserveMobile(mobType, quantity);
+        MobileInventory.INSTANCE.addNewMobileType(mobType);
+        boolean result = MobileInventory.INSTANCE.reserveMobile(mobType, quantity);
         Assert.assertFalse(result);
-        Assert.assertEquals(0.0, instance.getMobiles().get(mobType.getId()).get(mobType), 0.0);
+        Assert.assertEquals(0.0, MobileInventory.INSTANCE.getMobiles().get(mobType.getId()).get(mobType), 0.0);
     }
     
     /**
@@ -55,11 +53,11 @@ public class MobileInventoryTest {
     public void testReserveMobileWithLowerQuantity() {
         LOGGER.log(Level.INFO, "reserveMobile");
         int quantity = 4;
-        instance.addNewMobileType(mobType);
-        instance.returnMobile(mobType, 20);
-        boolean result = instance.reserveMobile(mobType, quantity);
+        MobileInventory.INSTANCE.addNewMobileType(mobType);
+        MobileInventory.INSTANCE.returnMobile(mobType, 20);
+        boolean result = MobileInventory.INSTANCE.reserveMobile(mobType, quantity);
         Assert.assertTrue(result);
-        Assert.assertEquals(16.0, instance.getMobiles().get(mobType.getId()).get(mobType), 0.0);
+        Assert.assertEquals(16.0, MobileInventory.INSTANCE.getMobiles().get(mobType.getId()).get(mobType), 0.0);
     }
 
     /**
@@ -69,10 +67,10 @@ public class MobileInventoryTest {
     public void testReturnMobile() {
         LOGGER.log(Level.INFO, "returnMobile");
         int quantity = 6;
-        instance.addNewMobileType(mobType);
-        boolean result = instance.returnMobile(mobType, quantity);
+        MobileInventory.INSTANCE.addNewMobileType(mobType);
+        boolean result = MobileInventory.INSTANCE.returnMobile(mobType, quantity);
         Assert.assertTrue(result);
-        Assert.assertEquals(6.0, instance.getMobiles().get(mobType.getId()).get(mobType), 0.0);
+        Assert.assertEquals(6.0, MobileInventory.INSTANCE.getMobiles().get(mobType.getId()).get(mobType), 0.0);
     }
     
 }

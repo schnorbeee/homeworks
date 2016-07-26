@@ -1,10 +1,11 @@
-package com.norbertschmelhaus.eehomework1.beans;
+package com.norbertschmelhaus.eehomework1.test;
 
+import com.norbertschmelhaus.eehomework1.singletons.UserDB;
+import com.norbertschmelhaus.eehomework1.dto.UserDTO;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -14,13 +15,7 @@ import org.junit.Test;
 public class UserDBTest {
 
     private static final Logger LOGGER = Logger.getLogger(UserDBTest.class.getName());
-    private UserDB instance;
     private final Date now = new Date();
-
-    @Before
-    public void setUp() {
-        instance = new UserDB();
-    }
 
     /**
      * Test of registrate method, of class UserDB.
@@ -32,7 +27,7 @@ public class UserDBTest {
         UserDTO expUser = new UserDTO("myusername", "Password123", "email@email.hu", now);
         user.setAddress("1851 fsdfasf");
         expUser.setAddress("1851 fsdfasf");
-        UserDTO result = instance.registrate(user);
+        UserDTO result = UserDB.INSTANCE.registrate(user);
         Assert.assertEquals(expUser, result);
     }
 
@@ -44,9 +39,9 @@ public class UserDBTest {
         LOGGER.log(Level.INFO, "getUser");
         String username = "myusername";
         UserDTO user = new UserDTO("myusername", "Password123", "email@email.hu", now);
-        instance.registrate(user);
+        UserDB.INSTANCE.registrate(user);
         UserDTO expUser = new UserDTO("myusername", "Password123", "email@email.hu", now);
-        UserDTO result = instance.getUser(username);
+        UserDTO result = UserDB.INSTANCE.getUser(username);
         Assert.assertEquals(expUser.getUserName(), result.getUserName());
         Assert.assertEquals(expUser, result);
     }
@@ -60,8 +55,8 @@ public class UserDBTest {
         String username = "myusername";
         String password = "Password123";
         UserDTO user = new UserDTO("myusername", "Password123", "email@email.hu", now);
-        instance.registrate(user);
-        boolean result = instance.authenticate(username, password);
+        UserDB.INSTANCE.registrate(user);
+        boolean result = UserDB.INSTANCE.authenticate(username, password);
         Assert.assertTrue(result);
     }
 
@@ -74,8 +69,8 @@ public class UserDBTest {
         String username = "myusername";
         String password = "Password1";
         UserDTO user = new UserDTO("myusername", "Password123", "email@email.hu", now);
-        instance.registrate(user);
-        boolean result = instance.authenticate(username, password);
+        UserDB.INSTANCE.registrate(user);
+        boolean result = UserDB.INSTANCE.authenticate(username, password);
         Assert.assertFalse(result);
     }
 }
