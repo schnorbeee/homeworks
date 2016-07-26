@@ -1,7 +1,6 @@
 package com.norbertschmelhaus.eehomework1.beans;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +23,10 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        UserDTO[] users;
-        MobileType[] mobiles;
-
-        regUsersAndWriteOut(users = serializeUsersFromJson());
-        regMobilesAndWriteOut(mobiles = serializeMobileTypesFromJson());
+        UserDTO[]users = serializeUsersFromJson();
+        regUsersAndWriteOut(users);
+        MobileType[] mobiles = serializeMobileTypesFromJson();
+        regMobilesAndWriteOut(mobiles);
     }
     
     private static void regUsersAndWriteOut(UserDTO[] users) {
@@ -55,14 +53,12 @@ public class Main {
 
     private static UserDTO[] serializeUsersFromJson() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        UserDTO[] users = mapper.readValue(Main.class.getClassLoader().getResource("jsons/users.json"), UserDTO[].class);
-        return users;
+        return mapper.readValue(Main.class.getClassLoader().getResource("jsons/users.json"), UserDTO[].class);
     }
 
     private static MobileType[] serializeMobileTypesFromJson() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        MobileType[] mobiles = mapper.readValue(Main.class.getClassLoader().getResource("jsons/types.json"), MobileType[].class);
-        return mobiles;
+        return mapper.readValue(Main.class.getClassLoader().getResource("jsons/types.json"), MobileType[].class);
     }
 
 }
