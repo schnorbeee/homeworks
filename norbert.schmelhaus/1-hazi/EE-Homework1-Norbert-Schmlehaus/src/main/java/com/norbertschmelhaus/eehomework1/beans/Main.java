@@ -25,7 +25,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        UserDTO[]users = serializeUsersFromJson();
+        UserDTO[] users = serializeUsersFromJson();
         regUsersAndWriteOut(users);
         MobileType[] mobiles = serializeMobileTypesFromJson();
         regMobilesAndWriteOut(mobiles);
@@ -43,13 +43,17 @@ public class Main {
     }
     
     private static void regMobilesAndWriteOut(MobileType[] mobiles) {
+        List<String> mobileUUIDs = new ArrayList();
         for (MobileType mobile : mobiles) {
             MobileInventory.INSTANCE.addNewMobileType(mobile);
+            mobileUUIDs.add(mobile.getId());
         }
-        for (Map.Entry<String, Map<MobileType, Integer>> e : MobileInventory.INSTANCE.getMobiles().entrySet()) {
-            MobileType currentMobile = e.getValue().keySet().iterator().next();
-            int current = e.getValue().get(currentMobile);
-            LOGGER.log(Level.INFO, "{0} : {1} : {2} : {3}", new Object[]{e.getKey(), currentMobile.getType(), currentMobile.getManufacturer(), current});
+        for (String m : mobileUUIDs) {
+            
+            Map<MobileType, Integer> mobilesMap = MobileInventory.INSTANCE.getMobileWithQuantity(m);
+            MobileType currentMobile = mobilesMap.entrySet().iterator().next().getKey();
+            int current = mobilesMap.entrySet().iterator().next().getValue();
+            LOGGER.log(Level.INFO, "{0} : {1} : {2} : {3}", new Object[]{m, currentMobile.getPrice(), currentMobile.getManufacturer(), current});
         }
     }
 

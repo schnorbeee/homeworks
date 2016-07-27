@@ -13,10 +13,10 @@ public enum MobileInventory {
 
     INSTANCE;
     
-    private final transient Map<String, Map<MobileType, Integer>> mobiles = new HashMap<>();    
-    
-    public Map<String, Map<MobileType, Integer>> getMobiles() {
-        return mobiles;
+    private final transient Map<String, Map<MobileType, Integer>> mobiles = new HashMap<>();
+
+    public Map<MobileType, Integer> getMobileWithQuantity(String id) {
+        return mobiles.get(id);
     }
 
     public MobileType addNewMobileType(MobileType type) {
@@ -40,4 +40,6 @@ public enum MobileInventory {
         }
         return false;
     }
+    
+    
 }

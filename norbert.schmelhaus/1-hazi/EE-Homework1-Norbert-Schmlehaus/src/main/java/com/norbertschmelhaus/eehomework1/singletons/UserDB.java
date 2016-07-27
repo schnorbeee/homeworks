@@ -13,7 +13,7 @@ public enum UserDB {
     
     INSTANCE;
 
-    private final transient Map<String, UserDTO> users = new HashMap<>();
+    private final Map<String, UserDTO> users = new HashMap<>();
     
     public UserDTO registrate(UserDTO user) {
         user.setRegistrationDate(new Date());

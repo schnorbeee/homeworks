@@ -28,7 +28,11 @@ public class UserDBTest {
         user.setAddress("1851 fsdfasf");
         expUser.setAddress("1851 fsdfasf");
         UserDTO result = UserDB.INSTANCE.registrate(user);
-        Assert.assertEquals(expUser, result);
+        Assert.assertEquals((double)(expUser.getRegistrationDate().getTime()), (double)(result.getRegistrationDate().getTime()), 5.0);
+        Assert.assertEquals(expUser.getAddress(), result.getAddress());
+        Assert.assertEquals(expUser.getUserName(), result.getUserName());
+        Assert.assertEquals(expUser.getPassword(), result.getPassword());
+        Assert.assertEquals(expUser.getEmail(), result.getEmail());
     }
 
     /**
@@ -38,9 +42,9 @@ public class UserDBTest {
     public void testGetUser() {
         LOGGER.log(Level.INFO, "getUser");
         String username = "myusername";
-        UserDTO user = new UserDTO("myusername", "Password123", "email@email.hu", now);
+        UserDTO user = new UserDTO(username, "Password123", "email@email.hu", now);
         UserDB.INSTANCE.registrate(user);
-        UserDTO expUser = new UserDTO("myusername", "Password123", "email@email.hu", now);
+        UserDTO expUser = new UserDTO(username, "Password123", "email@email.hu", now);
         UserDTO result = UserDB.INSTANCE.getUser(username);
         Assert.assertEquals(expUser.getUserName(), result.getUserName());
         Assert.assertEquals(expUser, result);
@@ -54,7 +58,7 @@ public class UserDBTest {
         LOGGER.log(Level.INFO, "authenticate");
         String username = "myusername";
         String password = "Password123";
-        UserDTO user = new UserDTO("myusername", "Password123", "email@email.hu", now);
+        UserDTO user = new UserDTO(username, "Password123", "email@email.hu", now);
         UserDB.INSTANCE.registrate(user);
         boolean result = UserDB.INSTANCE.authenticate(username, password);
         Assert.assertTrue(result);
@@ -68,7 +72,7 @@ public class UserDBTest {
         LOGGER.log(Level.INFO, "authenticate");
         String username = "myusername";
         String password = "Password1";
-        UserDTO user = new UserDTO("myusername", "Password123", "email@email.hu", now);
+        UserDTO user = new UserDTO(username, "Password123", "email@email.hu", now);
         UserDB.INSTANCE.registrate(user);
         boolean result = UserDB.INSTANCE.authenticate(username, password);
         Assert.assertFalse(result);

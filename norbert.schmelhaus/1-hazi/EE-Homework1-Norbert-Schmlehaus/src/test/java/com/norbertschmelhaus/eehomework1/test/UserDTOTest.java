@@ -58,10 +58,11 @@ public class UserDTOTest {
 
     @Test
     public void shouldRaiseConstraintViolationCauseInvalidPassword() {
-        UserDTO user = new UserDTO("Janos45", "dummyPassword", "email@email.hu", now);
+        String invalidPassword = "dummyPassword";
+        UserDTO user = new UserDTO("Janos45", invalidPassword, "email@email.hu", now);
         Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
         Assert.assertEquals(1, violations.size());
-        Assert.assertEquals("dummyPassword", violations.iterator().next().getInvalidValue());
+        Assert.assertEquals(invalidPassword, violations.iterator().next().getInvalidValue());
         Assert.assertEquals("{Password.message}", violations.iterator().next().getMessageTemplate());
     }
 
@@ -75,11 +76,12 @@ public class UserDTOTest {
 
     @Test
     public void shouldRaiseConstraintViolationCauseInvalidAddress() {
+        String invalidAddress = "dummyAddress";
         UserDTO user = new UserDTO("Janos45", "Valid541", "email@email.hu", now);
-        user.setAddress("dummyAddress");
+        user.setAddress(invalidAddress);
         Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
         Assert.assertEquals(1, violations.size());
-        Assert.assertEquals("dummyAddress", violations.iterator().next().getInvalidValue());
+        Assert.assertEquals(invalidAddress, violations.iterator().next().getInvalidValue());
         Assert.assertEquals("{Address.message}", violations.iterator().next().getMessageTemplate());
     }
 
@@ -93,11 +95,12 @@ public class UserDTOTest {
 
     @Test
     public void shouldRaiseConstraintViolationCauseInvalidPhone() {
+        String invalidPhone = "061234567890";
         UserDTO user = new UserDTO("Janos45", "Valid541", "email@email.hu", now);
-        user.setPhone("061234567890");
+        user.setPhone(invalidPhone);
         Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
         Assert.assertEquals(1, violations.size());
-        Assert.assertEquals("061234567890", violations.iterator().next().getInvalidValue());
+        Assert.assertEquals(invalidPhone, violations.iterator().next().getInvalidValue());
         Assert.assertEquals("{Phone.message}", violations.iterator().next().getMessageTemplate());
     }
 
@@ -110,10 +113,11 @@ public class UserDTOTest {
 
     @Test
     public void shouldRaiseConstraintViolationCauseInvalidEmail() {
-        UserDTO user = new UserDTO("Janos45", "Valid541", "@email.hu", now);
+        String invalidEmail = "@email.hu";
+        UserDTO user = new UserDTO("Janos45", "Valid541", invalidEmail, now);
         Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
         Assert.assertEquals(1, violations.size());
-        Assert.assertEquals("@email.hu", violations.iterator().next().getInvalidValue());
+        Assert.assertEquals(invalidEmail, violations.iterator().next().getInvalidValue());
         Assert.assertEquals("{Email.message}", violations.iterator().next().getMessageTemplate());
     }
 
