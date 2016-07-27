@@ -27,7 +27,7 @@ public class UserDBTest {
         UserDTO expUser = new UserDTO("myusername", "Password123", "email@email.hu", now);
         user.setAddress("1851 fsdfasf");
         expUser.setAddress("1851 fsdfasf");
-        UserDTO result = UserDB.INSTANCE.registrate(user);
+        UserDTO result = UserDB.getInstance().registrate(user);
         Assert.assertEquals((double)(expUser.getRegistrationDate().getTime()), (double)(result.getRegistrationDate().getTime()), 5.0);
         Assert.assertEquals(expUser.getAddress(), result.getAddress());
         Assert.assertEquals(expUser.getUserName(), result.getUserName());
@@ -43,9 +43,9 @@ public class UserDBTest {
         LOGGER.log(Level.INFO, "getUser");
         String username = "myusername";
         UserDTO user = new UserDTO(username, "Password123", "email@email.hu", now);
-        UserDB.INSTANCE.registrate(user);
+        UserDB.getInstance().registrate(user);
         UserDTO expUser = new UserDTO(username, "Password123", "email@email.hu", now);
-        UserDTO result = UserDB.INSTANCE.getUser(username);
+        UserDTO result = UserDB.getInstance().getUser(username);
         Assert.assertEquals(expUser.getUserName(), result.getUserName());
         Assert.assertEquals(expUser, result);
     }
@@ -59,8 +59,8 @@ public class UserDBTest {
         String username = "myusername";
         String password = "Password123";
         UserDTO user = new UserDTO(username, "Password123", "email@email.hu", now);
-        UserDB.INSTANCE.registrate(user);
-        boolean result = UserDB.INSTANCE.authenticate(username, password);
+        UserDB.getInstance().registrate(user);
+        boolean result = UserDB.getInstance().authenticate(username, password);
         Assert.assertTrue(result);
     }
 
@@ -73,8 +73,8 @@ public class UserDBTest {
         String username = "myusername";
         String password = "Password1";
         UserDTO user = new UserDTO(username, "Password123", "email@email.hu", now);
-        UserDB.INSTANCE.registrate(user);
-        boolean result = UserDB.INSTANCE.authenticate(username, password);
+        UserDB.getInstance().registrate(user);
+        boolean result = UserDB.getInstance().authenticate(username, password);
         Assert.assertFalse(result);
     }
 }

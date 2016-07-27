@@ -34,23 +34,23 @@ public class Main {
     private static void regUsersAndWriteOut(UserDTO[] users) {
         List<String> usernames = new ArrayList();
         for (UserDTO udto : users) {
-            UserDB.INSTANCE.registrate(udto);
+            UserDB.getInstance().registrate(udto);
             usernames.add(udto.getUserName());
         }
         for (String str : usernames) {
-            LOGGER.log(Level.INFO, "{0} : {1} : {2}", new Object[]{str, UserDB.INSTANCE.getUser(str).getEmail(), UserDB.INSTANCE.getUser(str).getPassword()});
+            LOGGER.log(Level.INFO, "{0} : {1} : {2}", new Object[]{str, UserDB.getInstance().getUser(str).getEmail(), UserDB.getInstance().getUser(str).getPassword()});
         }
     }
     
     private static void regMobilesAndWriteOut(MobileType[] mobiles) {
         List<String> mobileUUIDs = new ArrayList();
         for (MobileType mobile : mobiles) {
-            MobileInventory.INSTANCE.addNewMobileType(mobile);
+            MobileInventory.getInstance().addNewMobileType(mobile);
             mobileUUIDs.add(mobile.getId());
         }
         for (String m : mobileUUIDs) {
             
-            Map<MobileType, Integer> mobilesMap = MobileInventory.INSTANCE.getMobileWithQuantity(m);
+            Map<MobileType, Integer> mobilesMap = MobileInventory.getInstance().getMobileWithQuantity(m);
             MobileType currentMobile = mobilesMap.entrySet().iterator().next().getKey();
             int current = mobilesMap.entrySet().iterator().next().getValue();
             LOGGER.log(Level.INFO, "{0} : {1} : {2} : {3}", new Object[]{m, currentMobile.getPrice(), currentMobile.getManufacturer(), current});

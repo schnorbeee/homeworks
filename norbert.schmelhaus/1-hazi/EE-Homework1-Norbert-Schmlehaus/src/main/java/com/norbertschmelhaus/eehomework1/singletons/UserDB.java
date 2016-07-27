@@ -9,11 +9,19 @@ import java.util.Map;
  *
  * @author norbeee
  */
-public enum UserDB {
+public class UserDB {
     
-    INSTANCE;
-
+    private static final UserDB INSTANCE = new UserDB();
+    
     private final Map<String, UserDTO> users = new HashMap<>();
+    
+    private UserDB() {
+        //Default Constructor
+    }
+   
+    public static UserDB getInstance() {
+        return INSTANCE;
+    }
     
     public UserDTO registrate(UserDTO user) {
         user.setRegistrationDate(new Date());

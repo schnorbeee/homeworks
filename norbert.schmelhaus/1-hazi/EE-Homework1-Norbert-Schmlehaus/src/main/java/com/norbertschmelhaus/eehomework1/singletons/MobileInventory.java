@@ -9,12 +9,20 @@ import java.util.UUID;
  *
  * @author norbeee
  */
-public enum MobileInventory {
+public class MobileInventory {
 
-    INSTANCE;
+    private static final MobileInventory INSTANCE = new MobileInventory();
     
-    private final transient Map<String, Map<MobileType, Integer>> mobiles = new HashMap<>();
-
+    private final Map<String, Map<MobileType, Integer>> mobiles = new HashMap<>();
+    
+    private MobileInventory() {
+        //Default Constructor
+    }
+   
+    public static MobileInventory getInstance() {
+        return INSTANCE;
+    }
+    
     public Map<MobileType, Integer> getMobileWithQuantity(String id) {
         return mobiles.get(id);
     }
@@ -40,6 +48,5 @@ public enum MobileInventory {
         }
         return false;
     }
-    
     
 }
