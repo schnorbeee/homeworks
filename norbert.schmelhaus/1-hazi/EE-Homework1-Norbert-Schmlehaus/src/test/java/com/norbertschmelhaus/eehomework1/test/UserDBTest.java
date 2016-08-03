@@ -1,7 +1,7 @@
-package com.norbertschmelhaus.eehomework1.test;
+package com.norbertschmelhaus.eehomework2.test;
 
-import com.norbertschmelhaus.eehomework1.singletons.UserDB;
-import com.norbertschmelhaus.eehomework1.dto.UserDTO;
+import com.norbertschmelhaus.eehomework2.singletons.UserDB;
+import com.norbertschmelhaus.eehomework2.dto.UserDTO;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;

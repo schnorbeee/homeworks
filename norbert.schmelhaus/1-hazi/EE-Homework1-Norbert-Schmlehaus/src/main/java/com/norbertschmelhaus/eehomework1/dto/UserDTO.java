@@ -1,7 +1,13 @@
-package com.norbertschmelhaus.eehomework1.dto;
+package com.norbertschmelhaus.eehomework2.dto;
 
-import com.norbertschmelhaus.eehomework1.enums.Sex;
-import com.norbertschmelhaus.eehomework1.constraint.*;
+import com.norbertschmelhaus.eehomework2.annotation.Validate;
+import com.norbertschmelhaus.eehomework2.constraint.Password;
+import com.norbertschmelhaus.eehomework2.constraint.Email;
+import com.norbertschmelhaus.eehomework2.constraint.Phone;
+import com.norbertschmelhaus.eehomework2.constraint.Address;
+import com.norbertschmelhaus.eehomework2.constraint.DateOfBirth;
+import com.norbertschmelhaus.eehomework2.constraint.FirstFillLastFill;
+import com.norbertschmelhaus.eehomework2.enums.Sex;
 import java.io.Serializable;
 import java.util.Date;
 import javax.validation.constraints.NotNull;
@@ -12,6 +18,7 @@ import javax.validation.constraints.Size;
  *
  * @author norbeee
  */
+@Validate
 @FirstFillLastFill
 @DateOfBirth
 public class UserDTO implements Serializable {

@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.norbertschmelhaus</groupId>
-    <artifactId>EE-Homework1-Norbert-Schmlehaus</artifactId>
+    <artifactId>EE-Homework2-Norbert-Schmlehaus</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <properties>
@@ -43,6 +43,12 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.6.3</version>
 	</dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -69,4 +75,5 @@
             </plugin>
         </plugins>
     </build>
+    <name>EE-Homework2-Norbert-Schmlehaus</name>
 </project>

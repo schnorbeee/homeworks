@@ -1,8 +1,8 @@
-package com.norbertschmelhaus.eehomework1.constraint;
+package com.norbertschmelhaus.eehomework2.constraint;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import com.norbertschmelhaus.eehomework1.dto.UserDTO;
+import com.norbertschmelhaus.eehomework2.dto.UserDTO;
 
 /**
  *

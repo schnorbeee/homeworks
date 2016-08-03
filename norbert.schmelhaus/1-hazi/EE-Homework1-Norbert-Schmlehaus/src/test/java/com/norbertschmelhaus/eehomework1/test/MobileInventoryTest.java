@@ -1,10 +1,10 @@
-package com.norbertschmelhaus.eehomework1.test;
+package com.norbertschmelhaus.eehomework2.test;
 
-import com.norbertschmelhaus.eehomework1.enums.ManufacturerEnum;
-import com.norbertschmelhaus.eehomework1.enums.Color;
-import com.norbertschmelhaus.eehomework1.enums.Coin;
-import com.norbertschmelhaus.eehomework1.singletons.MobileInventory;
-import com.norbertschmelhaus.eehomework1.dto.MobileType;
+import com.norbertschmelhaus.eehomework2.enums.ManufacturerEnum;
+import com.norbertschmelhaus.eehomework2.enums.Color;
+import com.norbertschmelhaus.eehomework2.enums.Coin;
+import com.norbertschmelhaus.eehomework2.singletons.MobileInventory;
+import com.norbertschmelhaus.eehomework2.dto.MobileType;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Assert;
@@ -16,7 +16,7 @@ import org.junit.Test;
  */
 public class MobileInventoryTest {
 
-    private static final Logger LOGGER = Logger.getLogger(UserDBTest.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(MobileInventoryTest.class.getName());
     private final MobileType mobType = new MobileType(ManufacturerEnum.HTC, "type1", 1, Coin.JEN, Color.BLUE);
 
     /**

@@ -1,9 +1,10 @@
-package com.norbertschmelhaus.eehomework1.dto;
+package com.norbertschmelhaus.eehomework2.dto;
 
-import com.norbertschmelhaus.eehomework1.enums.Coin;
-import com.norbertschmelhaus.eehomework1.enums.Color;
-import com.norbertschmelhaus.eehomework1.enums.ManufacturerEnum;
-import com.norbertschmelhaus.eehomework1.constraint.Manufacturer;
+import com.norbertschmelhaus.eehomework2.annotation.Validate;
+import com.norbertschmelhaus.eehomework2.enums.Coin;
+import com.norbertschmelhaus.eehomework2.enums.Color;
+import com.norbertschmelhaus.eehomework2.enums.ManufacturerEnum;
+import com.norbertschmelhaus.eehomework2.constraint.Manufacturer;
 import java.io.Serializable;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import javax.validation.constraints.Size;
  *
  * @author norbeee
  */
+@Validate
 @Manufacturer
 public class MobileType implements Serializable {
 

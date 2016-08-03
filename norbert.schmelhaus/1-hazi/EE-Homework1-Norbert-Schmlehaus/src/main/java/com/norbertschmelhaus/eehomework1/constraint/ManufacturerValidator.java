@@ -1,10 +1,10 @@
-package com.norbertschmelhaus.eehomework1.constraint;
+package com.norbertschmelhaus.eehomework2.constraint;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import com.norbertschmelhaus.eehomework1.dto.MobileType;
-import com.norbertschmelhaus.eehomework1.enums.ManufacturerEnum;
-import com.norbertschmelhaus.eehomework1.enums.Color;
+import com.norbertschmelhaus.eehomework2.dto.MobileType;
+import com.norbertschmelhaus.eehomework2.enums.ManufacturerEnum;
+import com.norbertschmelhaus.eehomework2.enums.Color;
 
 /**
  *

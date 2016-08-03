@@ -1,6 +1,6 @@
-package com.norbertschmelhaus.eehomework1.test;
+package com.norbertschmelhaus.eehomework2.test;
 
-import com.norbertschmelhaus.eehomework1.dto.UserDTO;
+import com.norbertschmelhaus.eehomework2.dto.UserDTO;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;

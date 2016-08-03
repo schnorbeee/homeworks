@@ -1,4 +1,4 @@
-package com.norbertschmelhaus.eehomework1.enums;
+package com.norbertschmelhaus.eehomework2.enums;
 
 /**
  *

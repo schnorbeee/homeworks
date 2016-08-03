@@ -1,4 +1,4 @@
-package com.norbertschmelhaus.eehomework1.constraint;
+package com.norbertschmelhaus.eehomework2.constraint;
 
 import static java.lang.annotation.ElementType.FIELD;
 import java.lang.annotation.Retention;

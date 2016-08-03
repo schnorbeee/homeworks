@@ -1,9 +1,9 @@
-package com.norbertschmelhaus.eehomework1.test;
+package com.norbertschmelhaus.eehomework2.test;
 
-import com.norbertschmelhaus.eehomework1.enums.ManufacturerEnum;
-import com.norbertschmelhaus.eehomework1.enums.Coin;
-import com.norbertschmelhaus.eehomework1.dto.MobileType;
-import static com.norbertschmelhaus.eehomework1.enums.Color.*;
+import com.norbertschmelhaus.eehomework2.enums.ManufacturerEnum;
+import com.norbertschmelhaus.eehomework2.enums.Coin;
+import com.norbertschmelhaus.eehomework2.dto.MobileType;
+import static com.norbertschmelhaus.eehomework2.enums.Color.*;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
