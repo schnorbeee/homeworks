@@ -25,6 +25,12 @@ public class Main {
 
     private static final Logger LOGGER = Logger.getLogger(Main.class.getSimpleName());
 
+    private static MobileInventory inventory;
+    
+    private static UserDB userDB;
+    
+    private static CartService cartService;
+    
     private Main() {
         //Simple constuctor for main
     }
@@ -32,15 +38,15 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Weld weld = new Weld();
         WeldContainer container = weld.initialize();
-
+        
+        inventory = container.instance().select(MobileInventory.class).get();
+        userDB = container.instance().select(UserDB.class).get();
+        cartService = container.instance().select(CartService.class).get();
+        
         UserDTO[] users = serializeUsersFromJson();
         regUsers(users);
         MobileType[] mobiles = serializeMobileTypesFromJson();
         regMobiles(mobiles);
-
-        container.instance().select(MobileInventory.class).get();
-        container.instance().select(UserDB.class).get();
-        container.instance().select(CartService.class).get();
 
         cartTransactions();
 
@@ -51,24 +57,22 @@ public class Main {
         MobileType mobile1 = new MobileType(ManufacturerEnum.APPLE, "Iphone 5s", 100000, Coin.HUF, Color.BLACK);
         MobileType mobile2 = new MobileType(ManufacturerEnum.SAMSUNG, "Galaxy s4", 80000, Coin.HUF, Color.BLACK);
 
-        mobile1 = MobileInventory.getInstance().addNewMobileType(mobile1);
-        mobile2 = MobileInventory.getInstance().addNewMobileType(mobile2);
+        mobile1 = inventory.addNewMobileType(mobile1);
+        mobile2 = inventory.addNewMobileType(mobile2);
 
-        MobileInventory.getInstance().returnMobile(mobile2, 33);
-        MobileInventory.getInstance().returnMobile(mobile1, 50);
-        MobileInventory.getInstance().reserveMobile(mobile2, 2);
+        inventory.returnMobile(mobile2, 33);
+        inventory.returnMobile(mobile1, 50);
+        inventory.reserveMobile(mobile2, 2);
 
-        CartService cart = new CartService();
-
-        cart.addMobile(mobile1.getId(), 5);
-        cart.addMobile(mobile2.getId(), 11);
-        cart.checkout();
+        cartService.addMobile(inventory, mobile1.getId(), 5);
+        cartService.addMobile(inventory, mobile2.getId(), 11);
+        cartService.checkout();
     }
 
     private static void regUsers(UserDTO[] users) {
         Map<String, UserDTO> usersDB = new HashMap<>();
         for (UserDTO udto : users) {
-            UserDB.getInstance().registrate(udto);
+            userDB.registrate(udto);
             usersDB.put(udto.getUserName(), udto);
         }
         writeOutUsers(usersDB);
@@ -76,15 +80,15 @@ public class Main {
 
     private static void writeOutUsers(Map<String, UserDTO> users) {
         for (Map.Entry<String, UserDTO> user : users.entrySet()) {
-            LOGGER.log(Level.INFO, "{0} : {1} : {2}", new Object[]{user.getKey(), UserDB.getInstance().getUser(user.getKey()).getEmail(), UserDB.getInstance().getUser(user.getKey()).getPassword()});
+            LOGGER.log(Level.INFO, "{0} : {1} : {2}", new Object[]{user.getKey(), userDB.getUser(user.getKey()).getEmail(), userDB.getUser(user.getKey()).getPassword()});
         }
     }
 
     private static void regMobiles(MobileType[] mobiles) {
         Map<String, Map<MobileType, Integer>> mobiless = new HashMap<>();
         for (MobileType mobile : mobiles) {
-            MobileInventory.getInstance().addNewMobileType(mobile);
-            Map<MobileType, Integer> mobileMap = MobileInventory.getInstance().getMobileWithQuantity(mobile.getId());
+            inventory.addNewMobileType(mobile);
+            Map<MobileType, Integer> mobileMap = inventory.getMobileWithQuantity(mobile.getId());
             mobiless.put(mobile.getId(), mobileMap);
         }
         writeOutMobiles(mobiless);
@@ -92,7 +96,7 @@ public class Main {
 
     private static void writeOutMobiles(Map<String, Map<MobileType, Integer>> mobiles) {
         for (Map.Entry<String, Map<MobileType, Integer>> mobile : mobiles.entrySet()) {
-            Map<MobileType, Integer> mobileMap = MobileInventory.getInstance().getMobileWithQuantity(mobile.getKey());
+            Map<MobileType, Integer> mobileMap = inventory.getMobileWithQuantity(mobile.getKey());
             MobileType currentMobile = mobileMap.entrySet().iterator().next().getKey();
             int current = mobileMap.entrySet().iterator().next().getValue();
             LOGGER.log(Level.INFO, "{0} : {1} : {2} : {3}", new Object[]{mobile.getKey(), currentMobile.getPrice(), currentMobile.getManufacturer(), current});

@@ -5,22 +5,14 @@ import com.norbertschmelhaus.eehomework2.interceptor.BeanValidation;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import javax.inject.Singleton;
 
 /**
  *
  * @author norbeee
  */
-@Singleton
 public class UserDB {
     
-    private static final UserDB INSTANCE = new UserDB();
-    
     private final Map<String, UserDTO> users = new HashMap<>();
-    
-    public static UserDB getInstance() {
-        return INSTANCE;
-    }
     
     @BeanValidation
     public UserDTO registrate(UserDTO user) {
