@@ -64,8 +64,9 @@ public class Main {
         inventory.returnMobile(mobile1, 50);
         inventory.reserveMobile(mobile2, 2);
 
-        cartService.addMobile(inventory, mobile1.getId(), 5);
-        cartService.addMobile(inventory, mobile2.getId(), 11);
+        cartService.setInventory(inventory);
+        cartService.addMobile(mobile1.getId(), 5);
+        cartService.addMobile(mobile2.getId(), 11);
         cartService.checkout();
     }
 
@@ -88,7 +89,8 @@ public class Main {
         Map<String, Map<MobileType, Integer>> mobiless = new HashMap<>();
         for (MobileType mobile : mobiles) {
             inventory.addNewMobileType(mobile);
-            Map<MobileType, Integer> mobileMap = inventory.getMobileWithQuantity(mobile.getId());
+            Map<MobileType, Integer> mobileMap = new HashMap<>();
+            mobileMap.put(mobile, inventory.getMobileQuantityByID(mobile.getId()));
             mobiless.put(mobile.getId(), mobileMap);
         }
         writeOutMobiles(mobiless);
@@ -96,9 +98,8 @@ public class Main {
 
     private static void writeOutMobiles(Map<String, Map<MobileType, Integer>> mobiles) {
         for (Map.Entry<String, Map<MobileType, Integer>> mobile : mobiles.entrySet()) {
-            Map<MobileType, Integer> mobileMap = inventory.getMobileWithQuantity(mobile.getKey());
-            MobileType currentMobile = mobileMap.entrySet().iterator().next().getKey();
-            int current = mobileMap.entrySet().iterator().next().getValue();
+            MobileType currentMobile = inventory.getMobileTypeByID(mobile.getKey());
+            int current = inventory.getMobileQuantityByID(mobile.getKey());
             LOGGER.log(Level.INFO, "{0} : {1} : {2} : {3}", new Object[]{mobile.getKey(), currentMobile.getPrice(), currentMobile.getManufacturer(), current});
         }
     }

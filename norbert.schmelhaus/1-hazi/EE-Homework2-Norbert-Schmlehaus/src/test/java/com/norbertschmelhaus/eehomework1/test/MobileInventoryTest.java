@@ -37,7 +37,7 @@ public class MobileInventoryTest {
         LOGGER.log(Level.INFO, expResult.getId());
         MobileType result = inventory.addNewMobileType(newMobileType);
         Assert.assertEquals(expResult, result);
-        Assert.assertEquals(0.0, inventory.getMobileWithQuantity(newMobileType.getId()).get(newMobileType), 0.0);
+        Assert.assertEquals(0.0, inventory.getMobileQuantityByID(newMobileType.getId()), 0.0);
     }
 
     /**
@@ -50,7 +50,7 @@ public class MobileInventoryTest {
         inventory.addNewMobileType(mobType);
         boolean result = inventory.reserveMobile(mobType, quantity);
         Assert.assertFalse(result);
-        Assert.assertEquals(0.0, inventory.getMobileWithQuantity(mobType.getId()).get(mobType), 0.0);
+        Assert.assertEquals(0.0, inventory.getMobileQuantityByID(mobType.getId()), 0.0);
     }
     
     /**
@@ -64,7 +64,7 @@ public class MobileInventoryTest {
         inventory.returnMobile(mobType, 20);
         boolean result = inventory.reserveMobile(mobType, quantity);
         Assert.assertTrue(result);
-        Assert.assertEquals(16.0, inventory.getMobileWithQuantity(mobType.getId()).get(mobType), 0.0);
+        Assert.assertEquals(16.0, inventory.getMobileQuantityByID(mobType.getId()), 0.0);
     }
 
     /**
@@ -77,7 +77,7 @@ public class MobileInventoryTest {
         inventory.addNewMobileType(mobType);
         boolean result = inventory.returnMobile(mobType, quantity);
         Assert.assertTrue(result);
-        Assert.assertEquals(6.0, inventory.getMobileWithQuantity(mobType.getId()).get(mobType), 0.0);
+        Assert.assertEquals(6.0, inventory.getMobileQuantityByID(mobType.getId()), 0.0);
     }
     
 }

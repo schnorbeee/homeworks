@@ -19,29 +19,35 @@ public class CartService {
     private Logger logger;
 
     private final Map<MobileType, Integer> cart = new HashMap<>();
+    
+    private MobileInventory inventory = new MobileInventory();
 
     public CartService() {
         //Default constructor
     }
+    
+    public void setInventory(MobileInventory inventory) {
+        this.inventory = inventory;
+    }
 
-    public Map<MobileType, Integer> addMobile(MobileInventory inventory, String mobileID, int quantity) {
-        MobileType current = inventory.getMobileWithQuantity(mobileID).entrySet().iterator().next().getKey();
+    public Map<MobileType, Integer> addMobile(String mobileID, int quantity) {
+        MobileType current = inventory.getMobileTypeByID(mobileID);
         if (inventory.reserveMobile(current, quantity)) {
             cart.put(current, quantity);
         }
         return cart;
     }
 
-    public Map<MobileType, Integer> removeMobile(MobileInventory inventory, String mobileID, int quantity) {
-        MobileType current = inventory.getMobileWithQuantity(mobileID).entrySet().iterator().next().getKey();
-        int currentQuantity = inventory.getMobileWithQuantity(mobileID).entrySet().iterator().next().getValue();
+    public Map<MobileType, Integer> removeMobile(String mobileID, int quantity) {
+        MobileType current = inventory.getMobileTypeByID(mobileID);
+        int currentQuantity = inventory.getMobileQuantityByID(mobileID);
         if (quantity <= currentQuantity) {
             cart.replace(current, currentQuantity, currentQuantity - quantity);
         }
         return cart;
     }
 
-    public void clearCart(MobileInventory inventory) {
+    public void clearCart() {
         for (Map.Entry<MobileType, Integer> m : cart.entrySet()) {
             inventory.returnMobile(m.getKey(), m.getValue());
         }

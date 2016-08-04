@@ -15,8 +15,13 @@ public class MobileInventory {
     private final Map<String, Map<MobileType, Integer>> mobiles = new HashMap<>();
    
     @BeanValidation
-    public Map<MobileType, Integer> getMobileWithQuantity(String id) {
-        return mobiles.get(id);
+    public MobileType getMobileTypeByID(String id) {
+        return mobiles.get(id).keySet().iterator().next();
+    }
+    
+    @BeanValidation
+    public int getMobileQuantityByID(String id) {
+        return mobiles.get(id).entrySet().iterator().next().getValue();
     }
 
     @BeanValidation

@@ -37,11 +37,13 @@ public class ValidatorInterception {
                 beanValidator(o);
             }
         }
+        Object object = null;
         try {
-            return ic.proceed();
+            object = ic.proceed();
         } catch (Exception ex) {
-            throw new ViolationBeanException(ex);
+            logger.log(Level.SEVERE, null, ex);
         }
+        return object;
     }
     
     public void beanValidator(Object o) {
