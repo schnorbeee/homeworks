@@ -1,5 +1,6 @@
 package com.norbertschmelhaus.eehomework2.producer;
 
+import com.norbertschmelhaus.eehomework2.qualifiers.LoggerQualifier;
 import java.util.logging.Logger;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
@@ -10,7 +11,7 @@ import javax.enterprise.inject.spi.InjectionPoint;
  */
 public class LoggingProducer {
 
-    @Produces
+    @Produces @LoggerQualifier
     public Logger createLogger(InjectionPoint ip) {
         return Logger.getLogger(ip.getMember().getDeclaringClass().getName());
     }

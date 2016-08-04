@@ -2,6 +2,7 @@ package com.norbertschmelhaus.eehomework2.interceptor;
 
 import com.norbertschmelhaus.eehomework2.annotation.Validate;
 import com.norbertschmelhaus.eehomework2.exceptions.ViolationBeanException;
+import com.norbertschmelhaus.eehomework2.qualifiers.LoggerQualifier;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,24 +27,23 @@ public class ValidatorInterception {
     private static ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
     private static Validator val = vf.getValidator();
     
-    @Inject
+    @Inject @LoggerQualifier
     private Logger logger;
     
     @AroundInvoke
-    public Object validateBeans(InvocationContext ic) {
-        for (Object o : ic.getParameters()) {
+    public Object validateBeans(InvocationContext ic) throws Exception {
+        checkAnnotation(ic.getParameters());
+        return ic.proceed();
+    }
+    
+    public Object[] checkAnnotation(Object[] parameters) {
+        for(Object o : parameters) {
             if(o.getClass().isAnnotationPresent(Validate.class)) {
                 logger.log(Level.INFO, "Class have Validate annotation.");
                 beanValidator(o);
             }
         }
-        Object object = null;
-        try {
-            object = ic.proceed();
-        } catch (Exception ex) {
-            logger.log(Level.SEVERE, null, ex);
-        }
-        return object;
+        return parameters;
     }
     
     public void beanValidator(Object o) {

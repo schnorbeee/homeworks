@@ -1,6 +1,7 @@
 package com.norbertschmelhaus.eehomework2.cart;
 
 import com.norbertschmelhaus.eehomework2.dto.MobileType;
+import com.norbertschmelhaus.eehomework2.qualifiers.LoggerQualifier;
 import com.norbertschmelhaus.eehomework2.singletons.MobileInventory;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,7 @@ import javax.inject.Inject;
  */
 public class CartService {
 
-    @Inject
+    @Inject @LoggerQualifier
     private Logger logger;
 
     private final Map<MobileType, Integer> cart = new HashMap<>();

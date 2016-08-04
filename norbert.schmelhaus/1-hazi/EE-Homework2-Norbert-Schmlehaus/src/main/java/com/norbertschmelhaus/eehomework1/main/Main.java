@@ -1,4 +1,4 @@
-package com.norbertschmelhaus.eehomework2.beans;
+package com.norbertschmelhaus.eehomework2.main;
 
 import com.norbertschmelhaus.eehomework2.singletons.MobileInventory;
 import com.norbertschmelhaus.eehomework2.singletons.UserDB;
