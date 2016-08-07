@@ -1,0 +1,1 @@
+curl --verbose --write-out "\n" --request GET --cookie-jar cart-cookies.txt --cookie cart-cookies.txt http://localhost:8080/2-Homework-Webshop-Norbert-Schmelhaus-web/webapp/inventory/get/1db234bb-48b3-47e4-9433-9725ee6ff1d4
