@@ -47,7 +47,7 @@ public class MobileInventoryResource implements Serializable {
         if(isLogin(session.getAttribute("userDTO"))) {
             return inventory.reserveMobile(inventory.getMobileTypeByID(uuid), quantity);
         }
-        throw new UserIsntLoggedInException("You aren't logged in.");
+        throw new UserIsntLoggedInException("You isn't logged in.");
     }
     
     @POST
@@ -57,7 +57,7 @@ public class MobileInventoryResource implements Serializable {
         if(isLogin(session.getAttribute("userDTO"))) {
             return inventory.returnMobile(inventory.getMobileTypeByID(uuid), quantity);
         }
-        throw new UserIsntLoggedInException("You aren't logged in.");
+        throw new UserIsntLoggedInException("You isn't logged in.");
     }
     
     public boolean isLogin(Object userObject) {
