@@ -2,9 +2,10 @@ package com.norbertschmelhaus.rest;
 
 import com.norbertschmelhaus.database.UserDB;
 import com.norbertschmelhaus.dto.UserDTO;
-import com.norbertschmelhaus.exceptions.UserArentAnAdminException;
+import com.norbertschmelhaus.exceptions.UserIsntAnAdminException;
+import java.util.HashMap;
 import java.util.Map;
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,27 +23,25 @@ import javax.ws.rs.core.MediaType;
  *
  * @author norbeee sch.norbeee@gmail.com
  */
-@ApplicationScoped
+@RequestScoped
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserDTOResource {
 
-    private static final String EXCEPTION_MESSAGE = "You haven't permission to delete user.";
-    
     private static final String UDTO = "userDTO";
     
     @Inject
-    private UserDB users;
+    private UserDB userDB;
 
     @POST
-    @Path("/addUser")
+    @Path("/add")
     public UserDTO addUser(@Context HttpServletRequest request, UserDTO user) {
         HttpSession session = request.getSession(true);
         if (isLoginAndIsAdmin(session.getAttribute(UDTO))) {
-            return users.registrate(user);
+            return userDB.registrate(user);
         }
-        throw new UserArentAnAdminException(EXCEPTION_MESSAGE);
+        throw new UserIsntAnAdminException("You need admin privileges to add a user / Permission denied");
     }
 
     @DELETE
@@ -50,27 +49,31 @@ public class UserDTOResource {
     public UserDTO deleteUser(@Context HttpServletRequest request, @PathParam("username") String username) {
         HttpSession session = request.getSession(true);
         if (isLoginAndIsAdmin(session.getAttribute(UDTO))) {
-            return users.deleteUser(username);
+            return userDB.deleteUser(username);
         }
-        throw new UserArentAnAdminException(EXCEPTION_MESSAGE);
+        throw new UserIsntAnAdminException("You need admin privileges to delete a user / Permission denied");
     }
 
     @GET
     @Path("/{username}")
     public UserDTO getUser(@PathParam("username") String username) {
-        return users.getUser(username);
+        return userDB.getUser(username);
     }
 
     @GET
     public Map<String, UserDTO> getUsers() {
-        return users.getUsers();
+        Map<String, UserDTO> users = new HashMap();
+        for(String userName : userDB.getUserNames()) {
+            users.put(userName, userDB.getUser(userName));
+        }
+        return users;
     }
     
     @POST
     @Path("/login")
     public boolean login(@Context HttpServletRequest request, UserDTO user) {
         HttpSession session = request.getSession(true);
-        if(users.authenticate(user.getUserName(), user.getPassword())) {
+        if(userDB.authenticate(user.getUserName(), user.getPassword())) {
             session.setMaxInactiveInterval(600);
             session.setAttribute(UDTO, user);
             return true;
@@ -82,7 +85,7 @@ public class UserDTOResource {
     public boolean isLoginAndIsAdmin(Object userObject) {
         if ((userObject != null) && (userObject instanceof UserDTO)) {
             UserDTO user = (UserDTO) userObject;
-            if ((users.authenticate(user.getUserName(), user.getPassword())) && (user.isAdmin())) {
+            if ((userDB.authenticate(user.getUserName(), user.getPassword())) && (user.isAdmin())) {
                 return true;
             }
         }

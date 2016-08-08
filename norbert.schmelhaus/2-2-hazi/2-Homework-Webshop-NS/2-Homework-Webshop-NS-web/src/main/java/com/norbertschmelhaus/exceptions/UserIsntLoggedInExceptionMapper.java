@@ -12,15 +12,15 @@ import javax.ws.rs.ext.ExceptionMapper;
  *
  * @author norbeee sch.norbeee@gmail.com
  */
-public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
+public class UserIsntLoggedInExceptionMapper implements ExceptionMapper<UserIsntLoggedInException> {
 
     @Inject @LoggerQualifier
     private Logger logger;
     
     @Override
-    public Response toResponse(Throwable exception) {
-        logger.log(Level.WARNING, "General Exception Identification" + exception.getMessage(), exception);
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorMessageClass(exception.getMessage() + " : " + exception.getCause())).type(MediaType.APPLICATION_JSON).build();
+    public Response toResponse(UserIsntLoggedInException exception) {
+        logger.log(Level.WARNING, "This user isn't logged in.");
+        return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorMessageClass(exception.getMessage() + " : " + exception.getCause())).type(MediaType.APPLICATION_JSON).build();
     }
     
 }

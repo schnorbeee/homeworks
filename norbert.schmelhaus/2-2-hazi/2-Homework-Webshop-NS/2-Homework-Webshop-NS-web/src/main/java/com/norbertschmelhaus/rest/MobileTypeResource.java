@@ -4,10 +4,11 @@ import com.norbertschmelhaus.database.MobileInventory;
 import com.norbertschmelhaus.database.UserDB;
 import com.norbertschmelhaus.dto.MobileType;
 import com.norbertschmelhaus.dto.UserDTO;
-import com.norbertschmelhaus.exceptions.UserArentAnAdminException;
+import com.norbertschmelhaus.exceptions.UserIsntAnAdminException;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,8 +26,8 @@ import javax.ws.rs.core.MediaType;
  *
  * @author norbeee sch.norbeee@gmail.com
  */
-@ApplicationScoped
-@Path("/mobiletype")
+@RequestScoped
+@Path("/mobiles")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class MobileTypeResource implements Serializable {
@@ -38,13 +39,13 @@ public class MobileTypeResource implements Serializable {
     private UserDB users;
     
     @POST
-    @Path("/addMobile")
+    @Path("/add")
     public MobileType addNewMobileType(@Context HttpServletRequest request, MobileType mobile) {
         HttpSession session = request.getSession(true);
         if (isLoginAndIsAdmin(session.getAttribute("userDTO"))) {
             return inventory.addNewMobileType(mobile);
         }
-        throw new UserArentAnAdminException("You haven't permission to add new mobile.");
+        throw new UserIsntAnAdminException("You haven't permission to add new mobile.");
     }
     
     @DELETE
@@ -54,7 +55,7 @@ public class MobileTypeResource implements Serializable {
         if (isLoginAndIsAdmin(session.getAttribute("userDTO"))) {
             return inventory.deleteMobileTypeByID(uuid);
         }
-        throw  new UserArentAnAdminException("You haven't permission to delete mobile.");
+        throw  new UserIsntAnAdminException("You haven't permission to delete mobile.");
     }
     
     @GET
@@ -64,8 +65,12 @@ public class MobileTypeResource implements Serializable {
     }
     
     @GET
-    public Map<String, Map<MobileType, Integer>> getAllMobileTypes() {
-        return inventory.getMobiles();
+    public Map<String, Integer> getAllMobileTypes() {
+        Map<String, Integer> mobiles = new HashMap<>();
+        for(String id : inventory.getIds()) {
+            mobiles.put(id, inventory.getMobileQuantityByID(id));
+        }
+        return mobiles;
     }
     
     public boolean isLoginAndIsAdmin(Object userObject) {

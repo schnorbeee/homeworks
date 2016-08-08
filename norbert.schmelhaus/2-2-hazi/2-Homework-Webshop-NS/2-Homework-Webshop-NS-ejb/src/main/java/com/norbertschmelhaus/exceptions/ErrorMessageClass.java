@@ -4,15 +4,15 @@ package com.norbertschmelhaus.exceptions;
  *
  * @author norbeee sch.norbeee@gmail.com
  */
-public class ErrorIdentity {
+public class ErrorMessageClass {
 
     private String errorMessage;
 
-    public ErrorIdentity() {
+    public ErrorMessageClass() {
         //Default constuctor
     }
 
-    public ErrorIdentity(String errorMessage) {
+    public ErrorMessageClass(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 
@@ -23,5 +23,5 @@ public class ErrorIdentity {
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
     }
-    
+        
 }

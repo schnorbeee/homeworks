@@ -3,7 +3,9 @@ package com.norbertschmelhaus.database;
 import com.norbertschmelhaus.dto.MobileType;
 import com.norbertschmelhaus.interceptors.BeanValidation;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import javax.ejb.Singleton;
@@ -18,10 +20,14 @@ public class MobileInventory implements Serializable {
     private final transient Map<String, Map<MobileType, Integer>> mobiles = new HashMap<>();
 
     @BeanValidation
-    public Map<String, Map<MobileType, Integer>> getMobiles() {
-        return mobiles;
+    public List<String> getIds() {
+        List<String> ids = new ArrayList();
+        for (Map.Entry<String, Map<MobileType, Integer>> id : mobiles.entrySet()) {
+            ids.add(id.getKey());
+        }
+        return ids;
     }
-   
+    
     @BeanValidation
     public MobileType getMobileTypeByID(String id) {
         return mobiles.get(id).keySet().iterator().next();

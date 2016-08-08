@@ -4,7 +4,6 @@ import com.norbertschmelhaus.dto.UserDTO;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
-import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;

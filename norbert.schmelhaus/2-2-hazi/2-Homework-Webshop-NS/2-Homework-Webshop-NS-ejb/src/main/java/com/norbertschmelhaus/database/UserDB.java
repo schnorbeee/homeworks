@@ -3,8 +3,10 @@ package com.norbertschmelhaus.database;
 import com.norbertschmelhaus.dto.UserDTO;
 import com.norbertschmelhaus.interceptors.BeanValidation;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.ejb.Singleton;
 
@@ -17,8 +19,13 @@ public class UserDB implements Serializable {
     
     private final Map<String, UserDTO> users = new HashMap<>();
 
-    public Map<String, UserDTO> getUsers() {
-        return users;
+    @BeanValidation
+    public List<String> getUserNames() {
+        List<String> userNames = new ArrayList();
+        for(Map.Entry<String, UserDTO> id : users.entrySet()) {
+            userNames.add(id.getKey());
+        }
+        return userNames;
     }
     
     @BeanValidation

@@ -3,9 +3,9 @@ package com.norbertschmelhaus.rest;
 import com.norbertschmelhaus.database.MobileInventory;
 import com.norbertschmelhaus.database.UserDB;
 import com.norbertschmelhaus.dto.UserDTO;
-import com.norbertschmelhaus.exceptions.UserArentLoggedInException;
+import com.norbertschmelhaus.exceptions.UserIsntLoggedInException;
 import java.io.Serializable;
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,7 +22,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author norbeee sch.norbeee@gmail.com
  */
-@ApplicationScoped
+@RequestScoped
 @Path("/inventory")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -44,22 +44,20 @@ public class MobileInventoryResource implements Serializable {
     @Path("/reserve/{id}")
     public boolean reserveMobile(@Context HttpServletRequest request, @PathParam("id") String uuid, int quantity) {
         HttpSession session = request.getSession(true);
-        session.setMaxInactiveInterval(600);
         if(isLogin(session.getAttribute("userDTO"))) {
             return inventory.reserveMobile(inventory.getMobileTypeByID(uuid), quantity);
         }
-        throw new UserArentLoggedInException("You aren't logged in.");
+        throw new UserIsntLoggedInException("You aren't logged in.");
     }
     
     @POST
     @Path("/return/{id}")
     public boolean returnMobile(@Context HttpServletRequest request, @PathParam("id") String uuid, int quantity) {
         HttpSession session = request.getSession(true);
-        session.setMaxInactiveInterval(600);
         if(isLogin(session.getAttribute("userDTO"))) {
             return inventory.returnMobile(inventory.getMobileTypeByID(uuid), quantity);
         }
-        throw new UserArentLoggedInException("You aren't logged in.");
+        throw new UserIsntLoggedInException("You aren't logged in.");
     }
     
     public boolean isLogin(Object userObject) {

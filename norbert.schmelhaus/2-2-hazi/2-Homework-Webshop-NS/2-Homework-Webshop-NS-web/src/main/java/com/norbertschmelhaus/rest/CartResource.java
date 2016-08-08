@@ -3,12 +3,12 @@ package com.norbertschmelhaus.rest;
 import com.norbertschmelhaus.database.UserDB;
 import com.norbertschmelhaus.dto.MobileType;
 import com.norbertschmelhaus.dto.UserDTO;
-import com.norbertschmelhaus.exceptions.UserArentLoggedInException;
+import com.norbertschmelhaus.exceptions.UserIsntLoggedInException;
 import com.norbertschmelhaus.services.CartService;
 import java.io.Serializable;
 import java.util.Map;
-import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
@@ -30,14 +30,14 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 public class CartResource implements Serializable {
 
-    private static final String EXCEPTION_MESSAGE = "You aren't logged in.";
+    private static final String EXCEPTION_MESSAGE = "You isn't logged in.";
     
     private static final String UDTO = "userDTO";
     
-    @EJB
+    @Inject
     private CartService cartService;
 
-    @EJB
+    @Inject
     private UserDB userDB;
 
     public CartResource() {
@@ -52,42 +52,39 @@ public class CartResource implements Serializable {
         if (isLogin(session.getAttribute(UDTO))) {
             return cartService.addMobile(id, quantity);
         }
-        throw new UserArentLoggedInException(EXCEPTION_MESSAGE);
+        throw new UserIsntLoggedInException(EXCEPTION_MESSAGE);
     }
 
     @POST
     @Path("/remove/{id}")
     public Map<MobileType, Integer> removeMobileToCart(@Context HttpServletRequest request, @PathParam("id") String id, int quantity) {
         HttpSession session = request.getSession(true);
-        session.setMaxInactiveInterval(600);
         if (isLogin(session.getAttribute(UDTO))) {
             return cartService.removeMobile(id, quantity);
         }
-        throw new UserArentLoggedInException(EXCEPTION_MESSAGE);
+        throw new UserIsntLoggedInException(EXCEPTION_MESSAGE);
     }
 
     @GET
     @Path("/sum")
     public int getCartSummaryCost(@Context HttpServletRequest request) {
         HttpSession session = request.getSession(true);
-        session.setMaxInactiveInterval(600);
         if (isLogin(session.getAttribute(UDTO))) {
             return cartService.getCartSummaryCost();
         }
-        throw new UserArentLoggedInException(EXCEPTION_MESSAGE);
+        throw new UserIsntLoggedInException(EXCEPTION_MESSAGE);
     }
 
     @POST
     @Path("/checkout")
     public Map<MobileType, Integer> checkout(@Context HttpServletRequest request) {
         HttpSession session = request.getSession(true);
-        session.setMaxInactiveInterval(600);
         if (isLogin(session.getAttribute(UDTO))) {
             Map<MobileType, Integer> cart = cartService.checkout();
             session.invalidate();
             return cart;
         }
-        throw new UserArentLoggedInException(EXCEPTION_MESSAGE);
+        throw new UserIsntLoggedInException(EXCEPTION_MESSAGE);
     }
 
     public boolean isLogin(Object userObject) {

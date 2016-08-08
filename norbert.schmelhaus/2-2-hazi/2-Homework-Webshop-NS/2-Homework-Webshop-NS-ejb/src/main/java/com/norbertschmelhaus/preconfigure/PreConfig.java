@@ -5,6 +5,7 @@ import com.norbertschmelhaus.database.MobileInventory;
 import com.norbertschmelhaus.database.UserDB;
 import com.norbertschmelhaus.dto.MobileType;
 import com.norbertschmelhaus.dto.UserDTO;
+import com.norbertschmelhaus.qualifiers.LoggerQualifier;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +22,8 @@ import javax.inject.Inject;
 @Startup
 public class PreConfig {
 
-    private static final Logger LOGGER = Logger.getLogger(PreConfig.class.getSimpleName());
+    @Inject @LoggerQualifier
+    private Logger logger;
 
     private MobileInventory inventory;
     
@@ -31,16 +33,16 @@ public class PreConfig {
    
     @PostConstruct
     public void start() {
-        LOGGER.log(Level.INFO, "Init started!");
+        logger.log(Level.INFO, "Init started!");
         try {
             UserDTO[] users = serializeUsersFromJson();
             regUsers(users);
             MobileType[] mobiles = serializeMobileTypesFromJson();
             regMobiles(mobiles);
         } catch (IOException ex) {
-            LOGGER.log(Level.SEVERE, "Files not found! : {0}", ex);
+            logger.log(Level.SEVERE, "Files not found! : {0}", ex);
         }
-        LOGGER.log(Level.INFO, "Init done!");
+        logger.log(Level.INFO, "Init done!");
     }
 
     private void regUsers(UserDTO[] users) {
