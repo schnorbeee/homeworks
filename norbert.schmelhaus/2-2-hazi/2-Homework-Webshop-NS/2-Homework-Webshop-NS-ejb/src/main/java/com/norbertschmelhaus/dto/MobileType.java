@@ -1,6 +1,5 @@
 package com.norbertschmelhaus.dto;
 
-
 import com.norbertschmelhaus.annotations.Validate;
 import com.norbertschmelhaus.constraint.Manufacturer;
 import com.norbertschmelhaus.enums.Coin;

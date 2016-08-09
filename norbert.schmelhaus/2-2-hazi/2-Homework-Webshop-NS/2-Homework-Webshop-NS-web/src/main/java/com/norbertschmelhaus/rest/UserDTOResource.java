@@ -35,7 +35,6 @@ public class UserDTOResource {
     private UserDB userDB;
 
     @POST
-    @Path("/add")
     public UserDTO addUser(@Context HttpServletRequest request, UserDTO user) {
         HttpSession session = request.getSession(true);
         if (isLoginAndIsAdmin(session.getAttribute(UDTO))) {
@@ -61,10 +60,10 @@ public class UserDTOResource {
     }
 
     @GET
-    public Map<String, String> getUsers() {
-        Map<String, String> users = new HashMap();
+    public Map<String, UserDTO> getUsers() {
+        Map<String, UserDTO> users = new HashMap();
         for(String userName : userDB.getUserNames()) {
-            users.put(userName, userDB.getUser(userName).getEmail());
+            users.put(userName, userDB.getUser(userName));
         }
         return users;
     }

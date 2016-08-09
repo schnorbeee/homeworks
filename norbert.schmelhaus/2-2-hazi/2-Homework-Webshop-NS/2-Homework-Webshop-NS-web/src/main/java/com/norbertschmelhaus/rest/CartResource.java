@@ -45,7 +45,7 @@ public class CartResource implements Serializable {
     }
 
     @POST
-    @Path("/add/{id}")
+    @Path("/{id}")
     public Map<MobileType, Integer> addMobileToCart(@Context HttpServletRequest request, @PathParam("id") String id, int quantity) {
         HttpSession session = request.getSession(true);
         session.setMaxInactiveInterval(600);

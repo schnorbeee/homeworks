@@ -20,7 +20,7 @@ public class GeneralExceptionMapper implements ExceptionMapper<ViolationBeanExce
     @Override
     public Response toResponse(ViolationBeanException exception) {
         logger.log(Level.WARNING, "General Exception: Constraint of DTO isn't valid. " + exception.getMessage(), exception);
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorMessageClass(exception.getMessage() + " : " + exception.getCause())).type(MediaType.APPLICATION_JSON).build();
+        return Response.status(Response.Status.NOT_ACCEPTABLE).entity(new ErrorMessageClass(exception.getMessage() + " : " + exception.getCause())).type(MediaType.APPLICATION_JSON).build();
     }
 
 }

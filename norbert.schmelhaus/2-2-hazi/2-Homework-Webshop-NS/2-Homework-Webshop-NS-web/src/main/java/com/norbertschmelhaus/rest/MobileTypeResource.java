@@ -3,6 +3,7 @@ package com.norbertschmelhaus.rest;
 import com.norbertschmelhaus.database.MobileInventory;
 import com.norbertschmelhaus.database.UserDB;
 import com.norbertschmelhaus.dto.MobileType;
+import com.norbertschmelhaus.dto.MobileTypeWithQuantity;
 import com.norbertschmelhaus.dto.UserDTO;
 import com.norbertschmelhaus.exceptions.UserIsntAnAdminException;
 import java.io.Serializable;
@@ -39,7 +40,6 @@ public class MobileTypeResource implements Serializable {
     private UserDB users;
     
     @POST
-    @Path("/add")
     public MobileType addNewMobileType(@Context HttpServletRequest request, MobileType mobile) {
         HttpSession session = request.getSession(true);
         if (isLoginAndIsAdmin(session.getAttribute("userDTO"))) {
@@ -65,10 +65,10 @@ public class MobileTypeResource implements Serializable {
     }
     
     @GET
-    public Map<String, Integer> getAllMobileTypes() {
-        Map<String, Integer> mobiles = new HashMap<>();
+    public Map<String, MobileTypeWithQuantity> getAllMobileTypes() {
+        Map<String, MobileTypeWithQuantity> mobiles = new HashMap<>();
         for(String id : inventory.getIds()) {
-            mobiles.put(id, inventory.getMobileQuantityByID(id));
+            mobiles.put(id, new MobileTypeWithQuantity(inventory.getMobileQuantityByID(id), inventory.getMobileTypeByID(id)));
         }
         return mobiles;
     }

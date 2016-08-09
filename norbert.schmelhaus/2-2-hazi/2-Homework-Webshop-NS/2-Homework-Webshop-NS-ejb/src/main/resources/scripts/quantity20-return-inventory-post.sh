@@ -1,1 +1,1 @@
-curl --verbose --write-out "\n" --request POST --data @quantity20.json --header "Content-Type: application/json" --cookie-jar cart-cookies.txt --cookie cart-cookies.txt http://localhost:8080/2-Homework-Webshop-NS-web/webapp/inventory/return/59fa65f0-0b60-462e-8d15-ff7348b96b87
+curl --verbose --write-out "\n" --request POST --data @quantity20.json --header "Content-Type: application/json" --cookie-jar cart-cookies.txt --cookie cart-cookies.txt http://localhost:8080/2-Homework-Webshop-NS-web/webapp/inventory/return/9ef9a88b-b263-46f0-901d-9dd6695df849

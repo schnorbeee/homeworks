@@ -1,1 +1,1 @@
-curl --verbose --write-out "\n" --request POST --data @typenew.json --header "Content-Type: application/json" --cookie-jar cart-cookies.txt --cookie cart-cookies.txt http://localhost:8080/2-Homework-Webshop-NS-web/webapp/mobiles/add
+curl --verbose --write-out "\n" --request POST --data @typenew.json --header "Content-Type: application/json" --cookie-jar cart-cookies.txt --cookie cart-cookies.txt http://localhost:8080/2-Homework-Webshop-NS-web/webapp/mobiles
