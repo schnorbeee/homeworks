@@ -1,1 +1,0 @@
-curl --verbose --write-out "\n" --request DELETE --cookie-jar cart-cookies.txt --cookie cart-cookies.txt http://localhost:8080/2-Homework-Webshop-NS-web/webapp/mobiles/3196837b-2ac7-48e0-b18b-1b7d94ee24a4
