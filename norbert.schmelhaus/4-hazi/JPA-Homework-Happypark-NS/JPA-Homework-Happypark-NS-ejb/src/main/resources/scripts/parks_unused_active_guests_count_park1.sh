@@ -1,0 +1,1 @@
+curl --verbose --write-out "\n" --request GET --cookie-jar cart-cookies.txt --cookie cart-cookies.txt http://localhost:8080/JPA-Homework-Happypark-NS-web/rest/parks/unused_active_guests_count?park_pk=1

@@ -1,0 +1,14 @@
+{
+	"name": "ParkNew",
+	"address": {
+		"id": 3,
+		"zipCode": "5100",
+		"country": "HUN",
+		"city": "Pecs",
+		"street": "Nagy utca",
+		"houseNumber": "1/11"
+	},
+	"capital": 25000000,
+	"totalArea": 35000,
+	"ticketPrice": 1200
+}

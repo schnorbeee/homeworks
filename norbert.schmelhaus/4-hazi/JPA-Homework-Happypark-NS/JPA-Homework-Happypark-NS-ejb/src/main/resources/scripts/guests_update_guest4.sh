@@ -1,0 +1,1 @@
+curl --verbose --write-out "\n" --request PUT --data @oldguest.json --header "Content-Type: application/json" --cookie-jar cart-cookies.txt --cookie cart-cookies.txt http://localhost:8080/JPA-Homework-Happypark-NS-web/rest/guests/update?guest_pk=4

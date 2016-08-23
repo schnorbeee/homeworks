@@ -1,0 +1,1 @@
+curl --verbose --write-out "\n" --request DELETE --header "Content-Type: application/json" --cookie-jar cart-cookies.txt --cookie cart-cookies.txt "http://localhost:8080/JPA-Homework-Happypark-NS-web/rest/parks/remove_machine?park_pk=1&machine_pk=1"

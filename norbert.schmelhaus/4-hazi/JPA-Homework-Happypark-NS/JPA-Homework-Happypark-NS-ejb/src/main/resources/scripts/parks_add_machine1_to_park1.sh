@@ -1,0 +1,1 @@
+curl --verbose --write-out "\n" --request POST --header "Content-Type: application/json" --cookie-jar cart-cookies.txt --cookie cart-cookies.txt "http://localhost:8080/JPA-Homework-Happypark-NS-web/rest/parks/add_machine?park_pk=1&machine_pk=1"

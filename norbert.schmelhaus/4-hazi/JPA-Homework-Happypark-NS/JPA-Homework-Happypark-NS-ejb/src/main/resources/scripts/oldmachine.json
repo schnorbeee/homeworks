@@ -1,0 +1,10 @@
+{
+	"id": 4,
+	"area": 300,
+	"ticketPrice": 2000,
+	"seats": 39,
+	"freeSeats": 39,
+	"type": "ROLLERCOASTER",
+	"priceOfMachine": 700000,
+	"ageLimit": 21
+}

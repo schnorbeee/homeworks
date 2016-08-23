@@ -1,0 +1,8 @@
+{
+	"area": 300,
+	"ticketPrice": 2000,
+	"seats": 40,
+	"freeSeats": 40,
+	"type": "ROLLERCOASTER",
+	"priceOfMachine": 700000
+}
