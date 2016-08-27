@@ -7,11 +7,13 @@ import javax.inject.Inject;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
+import javax.ws.rs.ext.Provider;
 
 /**
  *
  * @author norbeee sch.norbeee@gmail.com
  */
+@Provider
 public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
 
     @Inject
