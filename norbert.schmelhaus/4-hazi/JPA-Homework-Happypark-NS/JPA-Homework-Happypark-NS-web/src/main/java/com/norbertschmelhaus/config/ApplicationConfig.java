@@ -1,6 +1,7 @@
 package com.norbertschmelhaus.config;
 
 import com.norbertschmelhaus.exceptionmappers.BadRequestExceptionMapper;
+import com.norbertschmelhaus.exceptionmappers.GeneralExceptionMapper;
 import com.norbertschmelhaus.exceptionmappers.GuestAgeIsntEnoughExcMapper;
 import com.norbertschmelhaus.exceptionmappers.GuestDontUseMachineExcMapper;
 import com.norbertschmelhaus.exceptionmappers.GuestHaventAnyMoneyExcMapper;
@@ -41,6 +42,7 @@ public class ApplicationConfig extends Application {
         resources.add(GuestBookRescource.class);
         resources.add(AddressResource.class);
         resources.add(BadRequestExceptionMapper.class);
+        resources.add(GeneralExceptionMapper.class);
         resources.add(GuestAgeIsntEnoughExcMapper.class);
         resources.add(GuestDontUseMachineExcMapper.class);
         resources.add(GuestHaventAnyMoneyExcMapper.class);
